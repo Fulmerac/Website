@@ -14,7 +14,7 @@ privacy.html          Privacy policy template
 assets/css/styles.css Design tokens, components, sections
 assets/js/config.js   ← booking settings (the only JS you need to edit)
 assets/js/main.js     Navigation, reveal, sticky CTA, form validation, scheduler embed
-assets/fonts/         Instrument Serif + Hanken Grotesk (Latin, OFL)
+assets/fonts/         Newsreader + Hanken Grotesk (Latin subsets, OFL)
 assets/img/           Favicon; add photography here
 docs/STRATEGY.md      Architecture, design system, conversion and responsive strategy
 ```
@@ -52,14 +52,14 @@ Until `schedulerUrl` is set, step 2 shows a visible setup note instead of a cale
 
 ## Before launch: content you need to supply
 
-Everything unconfirmed is wrapped in `<span class="ph">…</span>` and shows with a copper highlight, so nothing ships by accident. Search the HTML for `class="ph"` and for `PLACEHOLDER` comments.
+Everything unconfirmed is wrapped in `<span class="ph">…</span>` and shows with an amber highlight, so nothing ships by accident. Search the HTML for `class="ph"` and for `PLACEHOLDER` comments.
 
 **Done:** team leader (Cole Dillon: portrait, headshot, bio, quote, 5 years, Pennsylvania), contact email, Facebook/TikTok/Instagram links, share image, experience not required, agency name (Secure Life Agency), product focus (life insurance), 1099 contractor status, commission starting level, remote or in person in all 50 states, full-time or part-time, licensing requirement and support, low-cost leads, training / systems / community, 30-minute interview length.
 
 **Still needed**
 - [ ] **Google Calendar booking link** for `schedulerUrl` in `assets/js/config.js` (steps under "Connect booking")
 - [ ] Production domain: replace `www.example.com` in the canonical URL, `og:url`, `og:image`, schema, `robots.txt` and `sitemap.xml`
-- [ ] Real testimonials with written permission. Delete the `#testimonials` section if none are ready at launch.
+- [ ] Real testimonials with written permission. The `#testimonials` section is hidden until then: replace the placeholders and remove its `hidden` attribute.
 - [ ] Logo, to replace the "SL" monogram (optional)
 - [ ] Photo: a candid training or team-call shot (3:2, at least 1600×1067) for Training & Support. Real people, natural light, no stock. Export as WebP or JPEG under ~200 KB.
 - [ ] Review Cole's drafted bio and quote, and confirm the "Team Leader" title
