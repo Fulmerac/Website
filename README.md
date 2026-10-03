@@ -48,18 +48,16 @@ Until `schedulerUrl` is set, step 2 shows a visible setup note instead of a cale
 
 Everything unconfirmed is wrapped in `<span class="ph">…</span>` and shows with a copper highlight, so nothing ships by accident. Search the HTML for `class="ph"` and for `PLACEHOLDER` comments.
 
-**Done:** agency name (Secure Life Agency), product focus (life insurance), 1099 contractor status, commission starting level, remote or in person in all 50 states, full-time or part-time, licensing requirement and support, low-cost leads, training / systems / community, 30-minute interview length.
+**Done:** team leader (Cole Dillon: portrait, headshot, bio, quote, 5 years, Pennsylvania), contact email, Facebook/TikTok/Instagram links, share image, experience not required, agency name (Secure Life Agency), product focus (life insurance), 1099 contractor status, commission starting level, remote or in person in all 50 states, full-time or part-time, licensing requirement and support, low-cost leads, training / systems / community, 30-minute interview length.
 
 **Still needed**
 - [ ] **Scheduler link** (Calendly or Cal.com) for `schedulerUrl` in `assets/js/config.js`, with Zoom connected and the redirect set to `thank-you.html`
-- [ ] Team leader: name, title, years in the industry, where they're based, licensed states, two bio paragraphs, personal quote
-- [ ] Public contact email and phone for the footer
-- [ ] Production domain: canonical URL, `og:url`, schema, `robots.txt`, `sitemap.xml`
-- [ ] Experience requirement (FAQ: "Do I need insurance or sales experience?")
-- [ ] How mentorship works and the growth path (Why Join items 1 and 3)
+- [ ] Production domain: replace `www.example.com` in the canonical URL, `og:url`, `og:image`, schema, `robots.txt` and `sitemap.xml`
 - [ ] Real testimonials with written permission. Delete the `#testimonials` section if none are ready at launch.
 - [ ] Logo, to replace the "SL" monogram (optional)
-- [ ] Photos: team leader portrait (4:5, at least 1200×1500), candid training/team photo (3:2, at least 1600×1067), small square headshot, 1200×630 share image (then uncomment `og:image`). Real people, natural light, no stock. Export as WebP or JPEG under ~200 KB.
+- [ ] Photo: a candid training or team-call shot (3:2, at least 1600×1067) for Training & Support. Real people, natural light, no stock. Export as WebP or JPEG under ~200 KB.
+- [ ] Review Cole's drafted bio and quote, and confirm the "Team Leader" title
+- [ ] Optional: a phone number for the footer
 - [ ] Compliance: consent checkbox wording, income disclaimer, state licensing disclosures, carrier/IMO affiliation statement, a reviewed privacy policy, and sign-off on the "commission level of at least 100%" wording
 
 **Final step:** once every placeholder is replaced, delete the `.ph` rules in `styles.css` (search for "Placeholder marker").
