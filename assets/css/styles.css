@@ -536,16 +536,9 @@ button, input, select, textarea { font: inherit; color: inherit; }
 
 /* Training */
 .training { display: grid; gap: var(--space-8); }
-.timeline { display: grid; }
-.timeline__item { position: relative; display: grid; gap: var(--space-2); padding: 0 0 var(--space-6) var(--space-6); border-left: 1px solid var(--line); }
-.timeline__item:last-child { padding-bottom: 0; }
-.timeline__item::before {
-  content: ""; position: absolute; left: -5px; top: 0.4em;
-  width: 9px; height: 9px; border-radius: 50%;
-  background: var(--paper); border: 2px solid var(--copper-600);
-}
-.timeline__when { font-size: var(--fs-xs); font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--copper-700); }
-.timeline__item p:not(.timeline__when) { color: var(--ink-700); max-width: 32rem; }
+.pillars { display: grid; border-top: 1px solid var(--ink-900); }
+.pillar { display: grid; gap: var(--space-2); padding-block: var(--space-5); border-bottom: 1px solid var(--line); }
+.pillar p { color: var(--ink-700); max-width: 32rem; }
 @media (min-width: 960px) {
   .training { grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: var(--space-9); align-items: center; }
 }

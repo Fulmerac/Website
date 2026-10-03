@@ -123,7 +123,7 @@ Reusable, class-based components (BEM-style naming in `assets/css/styles.css`):
 - **Steps** `.steps` — numbered process with connecting rule.
 - **Profile** `.profile` — portrait, bio, pull quote, fact row.
 - **Spec grid** `.spec` — three-column definition list for the opportunity facts.
-- **Timeline** `.timeline` — training phases.
+- **Pillars** `.pillars` — training, systems and community, separated by hairline rules.
 - **Photo** `.photo` (`--portrait`, `--landscape`) — fixed aspect ratios, one consistent grade, captions.
 - **Featured quote** `.featured-quote` + **supporting quotes** `.quote` — one large editorial testimonial instead of a card grid.
 - **Accordion** `.faq` — native `<details>/<summary>`, so it's accessible and works without JS.

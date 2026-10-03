@@ -46,35 +46,21 @@ Until `schedulerUrl` is set, step 2 shows a visible setup note instead of a cale
 
 ## Before launch: content you need to supply
 
-Everything unconfirmed is wrapped in `<span class="ph">…</span>` and shows with a copper highlight, so nothing ships by accident. Search the HTML for `class="ph"` (index: 73, privacy: 9, other pages: 2 each) and for `PLACEHOLDER` comments.
+Everything unconfirmed is wrapped in `<span class="ph">…</span>` and shows with a copper highlight, so nothing ships by accident. Search the HTML for `class="ph"` and for `PLACEHOLDER` comments.
 
-**Identity**
-- [ ] Team name (header, footer, title tags, schema) and a real logo mark to replace the "TN" monogram
-- [ ] Team leader: name, title, agency, location, years in industry, licensed states, two bio paragraphs, personal quote
-- [ ] Contact email and phone
+**Done:** agency name (Secure Life Agency), product focus (life insurance), 1099 contractor status, commission starting level, remote or in person in all 50 states, full-time or part-time, licensing requirement and support, low-cost leads, training / systems / community, 30-minute interview length.
+
+**Still needed**
+- [ ] **Scheduler link** (Calendly or Cal.com) for `schedulerUrl` in `assets/js/config.js`, with Zoom connected and the redirect set to `thank-you.html`
+- [ ] Team leader: name, title, years in the industry, where they're based, licensed states, two bio paragraphs, personal quote
+- [ ] Public contact email and phone for the footer
 - [ ] Production domain: canonical URL, `og:url`, schema, `robots.txt`, `sitemap.xml`
-
-**Opportunity facts** (hero fact bar, The Opportunity, FAQ)
-- [ ] Role title, location / remote policy, experience requirements, schedule options
-- [ ] Product lines
-- [ ] Compensation structure. **No income figures** unless compliance approves them.
-- [ ] How agents find clients, and any associated costs
-- [ ] Licensing requirements, timeline, costs and support
-- [ ] Any start-up costs (answer honestly in the FAQ)
-- [ ] Interview length (currently `[30]` minutes, in four places)
-
-**Training & support:** phase names and descriptions, how mentorship works, growth path.
-
-**Testimonials:** real quotes from team members, with written permission. If any mention results, add the required disclaimer. If you don't have at least one real testimonial yet, delete the `#testimonials` section rather than launching with placeholders.
-
-**Photography** (natural light, real people, no stock)
-- [ ] Team leader portrait: 4:5, at least 1200×1500 → `assets/img/team-leader.jpg`
-- [ ] Candid training / team-call photo: 3:2, at least 1600×1067 → `assets/img/team-training.jpg`
-- [ ] Small headshot for the booking card (square, 112px+)
-- [ ] Share image for social links: 1200×630 → `assets/img/og-image.jpg`, then uncomment the `og:image` tag
-- Export as WebP or high-quality JPEG under ~200 KB. Use the `<img>` snippets in the HTML comments (they include `width`/`height`, `loading="lazy"` and alt text).
-
-**Compliance / legal:** consent checkbox wording, income disclaimer, licensing/regulatory disclosures, affiliation statement, and a reviewed privacy policy.
+- [ ] Experience requirement (FAQ: "Do I need insurance or sales experience?")
+- [ ] How mentorship works and the growth path (Why Join items 1 and 3)
+- [ ] Real testimonials with written permission. Delete the `#testimonials` section if none are ready at launch.
+- [ ] Logo, to replace the "SL" monogram (optional)
+- [ ] Photos: team leader portrait (4:5, at least 1200×1500), candid training/team photo (3:2, at least 1600×1067), small square headshot, 1200×630 share image (then uncomment `og:image`). Real people, natural light, no stock. Export as WebP or JPEG under ~200 KB.
+- [ ] Compliance: consent checkbox wording, income disclaimer, state licensing disclosures, carrier/IMO affiliation statement, a reviewed privacy policy, and sign-off on the "commission level of at least 100%" wording
 
 **Final step:** once every placeholder is replaced, delete the `.ph` rules in `styles.css` (search for "Placeholder marker").
 
