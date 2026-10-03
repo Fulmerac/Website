@@ -52,21 +52,20 @@ Until `schedulerUrl` is set, step 2 shows a visible setup note instead of a cale
 
 ## Before launch: content you need to supply
 
-Everything unconfirmed is wrapped in `<span class="ph">…</span>` and shows with an amber highlight, so nothing ships by accident. Search the HTML for `class="ph"` and for `PLACEHOLDER` comments.
+All placeholder content has been replaced. Compliance wording (contact consent, earnings and licensing disclosures, privacy policy) was drafted from the business details provided and should get a quick review from a licensed professional or your upline's compliance team.
 
 **Done:** team leader (Cole Dillon: portrait, headshot, bio, quote, 5 years, Pennsylvania), contact email, Facebook/TikTok/Instagram links, share image, experience not required, agency name (Secure Life Agency), product focus (life insurance), 1099 contractor status, commission starting level, remote or in person in all 50 states, full-time or part-time, licensing requirement and support, low-cost leads, training / systems / community, 30-minute interview length.
 
 **Still needed**
 - [ ] **Google Calendar booking link** for `schedulerUrl` in `assets/js/config.js` (steps under "Connect booking")
 - [ ] Production domain: replace `www.example.com` in the canonical URL, `og:url`, `og:image`, schema, `robots.txt` and `sitemap.xml`
-- [ ] Real testimonials with written permission. The `#testimonials` section is hidden until then: replace the placeholders and remove its `hidden` attribute.
 - [ ] **Logo file** (SVG preferred, or a transparent PNG): the mark for the header, footer and browser-tab icon. Until then the name is set in the logo's lettering style.
-- [ ] Photo: a candid training or team-call shot (3:2, at least 1600×1067) for Training & Support. Real people, natural light, no stock. Export as WebP or JPEG under ~200 KB.
+- [ ] Optional photo: a candid training or team-call shot (3:2, at least 1600×1067) for Training & Support. Real people, natural light, no stock. Export as WebP or JPEG under ~200 KB.
 - [ ] Review Cole's drafted bio and quote, and confirm the "Team Leader" title
 - [ ] Optional: a phone number for the footer
-- [ ] Compliance: consent checkbox wording, income disclaimer, state licensing disclosures, carrier/IMO affiliation statement, a reviewed privacy policy, and sign-off on the "commission level of at least 100%" wording
+- [ ] Compliance review of the drafted wording: consent checkbox, footer earnings and licensing disclosures, privacy policy, and the "commission level of at least 100%" phrasing. Add a carrier/IMO affiliation statement if your upline requires one.
 
-**Final step:** once every placeholder is replaced, delete the `.ph` rules in `styles.css` (search for "Placeholder marker").
+**Optional later:** testimonials were removed at the client's request. If real ones become available (with written permission), they can be added back as a section between Training and FAQ.
 
 ## Deploying
 

@@ -22,7 +22,6 @@ The site is a single long-form landing page (one goal, one path), plus three sup
 | 5 | Meet the Team Leader | Trust in a real person | "Who will I be talking to?" |
 | 6 | The Opportunity | Facts, plainly stated | "What exactly is the role?" |
 | 7 | Training & Support | De-risk the decision | "Will I be set up to succeed?" |
-| 8 | Testimonials | Social proof | "Has this worked for people like me?" |
 | 9 | FAQ | Objection handling | "What about…?" |
 | 10 | Final CTA + booking form | Conversion | "Okay — how do I book?" |
 | 11 | Footer | Legal, contact, secondary nav | "Is this legitimate?" |
@@ -86,7 +85,7 @@ Taken from the Secure Life Agency logo (navy + sage). Values were matched by eye
 | `--mist` | `#AEBCCB` | Muted text on dark |
 | `--error` | `#B42318` | Form errors |
 
-Navy fills the one action. Sage is reserved for small accents, so the CTA stays the strongest thing on the page. Placeholder highlights are amber, so unfinished content never blends into the brand.
+Navy fills the one action. Sage is reserved for small accents, so the CTA stays the strongest thing on the page. 
 
 ---
 
@@ -127,11 +126,9 @@ Reusable, class-based components (BEM-style naming in `assets/css/styles.css`):
 - **Profile** `.profile` — portrait, bio, pull quote, fact row.
 - **Spec grid** `.spec` — three-column definition list for the opportunity facts.
 - **Pillars** `.pillars` — training, systems and community, separated by hairline rules.
-- **Photo** `.photo` (`--portrait`, `--landscape`) — fixed aspect ratios, one consistent grade, captions.
-- **Featured quote** `.featured-quote` + **supporting quotes** `.quote` — one large editorial testimonial instead of a card grid.
+- **Photo** `.photo--landscape` — slot for a future candid training photo; the hero portrait uses `.hero__portrait`.
 - **Accordion** `.faq` — native `<details>/<summary>`, so it's accessible and works without JS.
 - **Form** `.form`, `.field`, `.choice`, `.form-steps`, `.form-success`, `.error-summary`
-- **Placeholder marker** `.ph` — highlights unconfirmed content so nothing ships by accident.
 - **Footer** `.site-footer`
 
 ---
@@ -157,7 +154,7 @@ Mobile-first CSS with three breakpoints:
 | Breakpoint | Width | Changes |
 |---|---|---|
 | base | < 640px | Single column, 16px gutters, full-width CTAs, sticky bottom CTA bar, mobile menu |
-| `sm` | ≥ 640px | Two-column fit lists / testimonials, side-by-side form fields |
+| `sm` | ≥ 640px | Two-column fit lists, side-by-side form fields |
 | `md` | ≥ 960px | Desktop nav, split hero, sticky section heads, horizontal steps, profile split |
 | `lg` | ≥ 1200px | Max container and full type scale |
 
@@ -205,3 +202,7 @@ These came out of the creative-director, CRO and "anti-AI" reviews. Keep them in
 ### Round 3 (brand logo)
 
 The client's logo (navy and sage, geometric sans wordmark) replaced the interim evergreen palette. The header and footer wordmark now follow the logo's lettering until the logo file itself is supplied.
+
+### Round 4 (content complete)
+
+Testimonials were removed at the client's request (no real ones yet). Compliance wording was drafted: contact consent with text-message opt-out, an earnings disclosure (1099, no guaranteed income, costs disclosed), a licensing disclosure, and a full privacy policy reflecting how the site actually works (Google Calendar/Meet, no tracking). All `.ph` placeholders are resolved and the marker styles are removed.
