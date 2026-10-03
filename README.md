@@ -1,6 +1,6 @@
 # Insurance Sales Team — Recruiting Site
 
-A single-goal recruiting site: turn qualified visitors into **booked Zoom interviews** with the team leader.
+A single-goal recruiting site: turn qualified visitors into **booked Google Meet interviews** with the team leader.
 
 - Static HTML, CSS and vanilla JS. No framework, no build step, no runtime dependencies.
 - Total page weight is about 130 KB, including self-hosted fonts.
@@ -28,19 +28,25 @@ python3 -m http.server 8080
 
 ## Connect booking
 
-Edit `assets/js/config.js`:
+Interviews run on **Google Meet**, booked through a free **Google Calendar appointment schedule** on coledillon76@gmail.com.
+
+1. In Google Calendar (on a computer), choose **Create → Appointment schedule**.
+2. Name it (e.g. "Secure Life Agency Interview"), set the duration to **30 minutes**, and set Cole's available hours.
+3. Under location and conferencing, choose **Google Meet**, so every booking gets its own Meet link.
+4. Save, then **Share → Website embed → Inline** and copy the `src` link. It starts with `https://calendar.google.com/calendar/appointments/schedules/`.
+5. Paste it into `schedulerUrl` in `assets/js/config.js`.
 
 | Setting | What it does |
 |---|---|
-| `schedulerUrl` | Your Calendly / Cal.com / Acuity event link. It's embedded in step 2 of the booking card, and a "Go straight to the calendar" link appears above the form. |
+| `schedulerUrl` | The booking page. A full `calendar.google.com` link is embedded in step 2 of the booking card. A short `calendar.app.google` link can't be embedded, so it opens as a button instead. A "Go straight to the calendar" link also appears above the form. Calendly and Cal.com links work too. |
 | `leadEndpoint` | Optional. Receives step 1 as JSON (Formspree, a Zapier/Make webhook or a CRM) so you can follow up with people who don't finish booking. |
-| `prefillScheduler` | Passes name and email to the scheduler. |
-| `autoRedirect` | Sends visitors to the scheduler page instead of embedding it. |
+| `prefillScheduler` | Passes name and email to Calendly / Cal.com. Google appointment pages don't support this, so visitors re-enter them there. |
+| `autoRedirect` | Sends visitors to the booking page instead of embedding it. |
 
-In your scheduler:
-- Connect Zoom so every booking generates a meeting link automatically.
-- Set the confirmation redirect to `https://yourdomain.com/thank-you.html`.
-- Turn on reschedule/cancel links in the confirmation email. The site tells visitors they can reschedule that way.
+Notes on Google appointment schedules:
+- After booking, visitors see Google's own confirmation screen and get a calendar invite with the Meet link. `thank-you.html` is only used with schedulers that support a custom redirect.
+- The site tells visitors to email Cole if they need a different time.
+- Some extras (such as reminder emails) may need a paid Google plan.
 
 Until `schedulerUrl` is set, step 2 shows a visible setup note instead of a calendar.
 
@@ -51,7 +57,7 @@ Everything unconfirmed is wrapped in `<span class="ph">…</span>` and shows wit
 **Done:** team leader (Cole Dillon: portrait, headshot, bio, quote, 5 years, Pennsylvania), contact email, Facebook/TikTok/Instagram links, share image, experience not required, agency name (Secure Life Agency), product focus (life insurance), 1099 contractor status, commission starting level, remote or in person in all 50 states, full-time or part-time, licensing requirement and support, low-cost leads, training / systems / community, 30-minute interview length.
 
 **Still needed**
-- [ ] **Scheduler link** (Calendly or Cal.com) for `schedulerUrl` in `assets/js/config.js`, with Zoom connected and the redirect set to `thank-you.html`
+- [ ] **Google Calendar booking link** for `schedulerUrl` in `assets/js/config.js` (steps under "Connect booking")
 - [ ] Production domain: replace `www.example.com` in the canonical URL, `og:url`, `og:image`, schema, `robots.txt` and `sitemap.xml`
 - [ ] Real testimonials with written permission. Delete the `#testimonials` section if none are ready at launch.
 - [ ] Logo, to replace the "SL" monogram (optional)

@@ -6,9 +6,9 @@ Prepared before build. This document explains *why* the site is structured and s
 
 ## 1. Site architecture
 
-**Business objective:** turn qualified visitors into scheduled Zoom interviews with the team leader.
+**Business objective:** turn qualified visitors into scheduled video interviews with the team leader (on Google Meet).
 
-**Journey:** Visitor → Learn about opportunity → Understand benefits → Learn about the team → Build trust → Book interview → Zoom
+**Journey:** Visitor → Learn about opportunity → Understand benefits → Learn about the team → Build trust → Book interview → Google Meet
 
 The site is a single long-form landing page (one goal, one path), plus three supporting pages.
 
@@ -33,11 +33,11 @@ The site is a single long-form landing page (one goal, one path), plus three sup
 - `/privacy.html` — privacy policy template (linked from the form consent + footer).
 - `/404.html` — branded not-found page that routes back to the funnel. `noindex`.
 
-**Booking flow (the conversion is a booked Zoom slot, not a form submission)**
+**Booking flow (the conversion is a booked interview slot, not a form submission)**
 
 1. Every "Book Your Interview" CTA anchors to `#book` and moves focus to the first form field.
 2. **Step 1 — Your details:** name, email, state, licensing status and consent. Phone is optional. The button reads "Continue to pick a time" so nobody mistakes step 1 for a finished booking. Data goes to an optional lead endpoint so the leader can follow up if someone drops off at the calendar.
-3. **Step 2 — Pick a time:** the scheduler (Calendly / Cal.com / Acuity) is **embedded in the same card**, with name and email prefilled. The booking happens on the page, and the scheduler issues the Zoom link.
+3. **Step 2 — Pick a time:** the scheduler (a Google Calendar appointment schedule; Calendly and Cal.com also supported) is **embedded in the same card**. The booking happens on the page, and the scheduler issues the Google Meet link.
 4. **Escape hatch:** "Go straight to the calendar" lets visitors who don't want a form skip step 1.
 5. The scheduler redirects to `thank-you.html`.
 

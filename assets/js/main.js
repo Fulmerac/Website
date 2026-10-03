@@ -233,11 +233,14 @@
       });
     });
 
+    const isGoogle = (url) => /(^|\.)calendar\.google\.com$|^calendar\.app\.google$/.test(url.hostname);
+
     function buildSchedulerUrl(data) {
       if (!config.schedulerUrl) return '';
       try {
         const url = new URL(config.schedulerUrl);
-        if (config.prefillScheduler && data.email) {
+        // Calendly and Cal.com read name/email from the URL; Google appointment pages don't.
+        if (config.prefillScheduler && data.email && !isGoogle(url)) {
           url.searchParams.set('name', `${data.firstName} ${data.lastName}`.trim());
           url.searchParams.set('email', data.email);
         }
@@ -274,6 +277,18 @@
     // Step 2: the scheduler is embedded so the booking itself happens on this page.
     function mountScheduler(url) {
       const frameUrl = new URL(url);
+      schedulerLink.href = url;
+
+      // Google's calendar.app.google short links redirect to a page that can't be framed,
+      // so offer a button instead. The full calendar.google.com link embeds with gv=true.
+      if (frameUrl.hostname === 'calendar.app.google') {
+        const button = schedulerLink.cloneNode(true);
+        button.className = 'btn btn--primary btn--lg btn--block';
+        button.textContent = 'Choose your interview time';
+        schedulerMount.appendChild(button);
+        return;
+      }
+      if (isGoogle(frameUrl)) frameUrl.searchParams.set('gv', 'true');
       if (/calendly\.com$/.test(frameUrl.hostname)) {
         frameUrl.searchParams.set('embed_domain', window.location.hostname || 'localhost');
         frameUrl.searchParams.set('embed_type', 'Inline');
@@ -281,10 +296,9 @@
       }
       const iframe = document.createElement('iframe');
       iframe.src = frameUrl.toString();
-      iframe.title = 'Choose a time for your Zoom interview';
+      iframe.title = 'Choose a time for your interview';
       iframe.loading = 'eager';
       schedulerMount.appendChild(iframe);
-      schedulerLink.href = url;
       schedulerFallback.hidden = false;
     }
 
