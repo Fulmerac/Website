@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# PLACEHOLDER: replace the domain before launch
+Sitemap: https://www.example.com/sitemap.xml
