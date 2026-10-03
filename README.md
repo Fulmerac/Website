@@ -60,7 +60,7 @@ Everything unconfirmed is wrapped in `<span class="ph">…</span>` and shows wit
 - [ ] **Google Calendar booking link** for `schedulerUrl` in `assets/js/config.js` (steps under "Connect booking")
 - [ ] Production domain: replace `www.example.com` in the canonical URL, `og:url`, `og:image`, schema, `robots.txt` and `sitemap.xml`
 - [ ] Real testimonials with written permission. The `#testimonials` section is hidden until then: replace the placeholders and remove its `hidden` attribute.
-- [ ] Logo, to replace the "SL" monogram (optional)
+- [ ] **Logo file** (SVG preferred, or a transparent PNG): the mark for the header, footer and browser-tab icon. Until then the name is set in the logo's lettering style.
 - [ ] Photo: a candid training or team-call shot (3:2, at least 1600×1067) for Training & Support. Real people, natural light, no stock. Export as WebP or JPEG under ~200 KB.
 - [ ] Review Cole's drafted bio and quote, and confirm the "Team Leader" title
 - [ ] Optional: a phone number for the footer

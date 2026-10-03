@@ -67,23 +67,26 @@ Both URLs are set in one file: `assets/js/config.js`.
 
 ## 3. Color palette
 
+Taken from the Secure Life Agency logo (navy + sage). Values were matched by eye from the logo artwork; swap in exact brand values if a brand sheet exists.
+
 | Token | Hex | Use |
 |---|---|---|
-| `--ink-950` | `#0A1511` | Footer |
-| `--ink-900` | `#10201A` | Primary text, dark sections (evergreen near-black) |
-| `--ink-700` | `#2C3B35` | Secondary text on light |
-| `--ink-500` | `#55635C` | Muted text on light (5.8:1 on paper) |
-| `--paper` | `#F5F6F2` | Page background (cool, slightly green-grey; deliberately not cream) |
-| `--paper-2` | `#ECEEE8` | Alternate section background |
+| `--ink-950` | `#0A1D33` | Footer |
+| `--ink-900` | `#10294A` | Primary text, dark sections (logo navy) |
+| `--ink-700` | `#2E4258` | Secondary text on light |
+| `--ink-500` | `#56657A` | Muted text on light |
+| `--paper` | `#F7F6F3` | Page background (soft neutral, like the logo's ground) |
+| `--paper-2` | `#EEF1EE` | Alternate section background (faint sage tint) |
 | `--white` | `#FFFFFF` | Form surface |
-| `--line` | `#D8DDD5` | Hairline rules on light |
-| `--accent` | `#1D5C46` | Primary CTA and the hero's one italic phrase (white text: 7.9:1) |
-| `--accent-strong` | `#154535` | CTA hover / pressed |
-| `--accent-on-dark` | `#8FC9AE` | Accent text on dark sections |
-| `--mist` | `#A9B9B1` | Muted text on dark |
+| `--line` | `#DCDFDC` | Hairline rules on light |
+| `--accent` | `#163F6B` | Primary CTA (logo mark navy; white text 10:1) |
+| `--accent-strong` | `#0F3157` | CTA hover / pressed |
+| `--sage` | `#8FB09F` | Logo sage: accents on dark, active-nav underline |
+| `--sage-text` | `#4A7562` | Sage dark enough for text on light: hero italic, step numerals, check marks, quote marks |
+| `--mist` | `#AEBCCB` | Muted text on dark |
 | `--error` | `#B42318` | Form errors |
 
-Why: evergreen reads as *secure* and *life* without the "insurance blue" cliché. A cool paper keeps the page out of the cream-and-terracotta look that has become an AI-template signature. Placeholder highlights are amber, so unfinished content never blends into the brand.
+Navy fills the one action. Sage is reserved for small accents, so the CTA stays the strongest thing on the page. Placeholder highlights are amber, so unfinished content never blends into the brand.
 
 ---
 
@@ -92,7 +95,7 @@ Why: evergreen reads as *secure* and *life* without the "insurance blue" cliché
 - **Display:** *Newsreader* (400–500, roman and italic), the face of a serious publication. It's steadier and more institutional than a trendy condensed serif. It's trimmed to one optical size and the Latin character set (36 KB and 39 KB).
 - **Text / UI:** *Hanken Grotesk* (variable 400–600). A humanist grotesque, warmer than Inter and very readable at small sizes.
 - Both are self-hosted with `font-display: swap`; the roman serif and the sans are preloaded.
-- **Wordmark:** "Secure Life" set in Newsreader 500, with "AGENCY" in small tracked caps. No boxed monogram.
+- **Wordmark:** set in the style of the logo: bold "SECURE", regular "LIFE AGENCY", tracked capitals. Replace with the logo file (`.brand__logo`) when it is supplied.
 
 | Token | Size (fluid) | Line height | Use |
 |---|---|---|---|
@@ -198,3 +201,7 @@ These came out of the creative-director, CRO and "anti-AI" reviews. Keep them in
 | Same photo in hero and Team Leader | Repetition. The Team Leader section is now quote-led. |
 | Fade-in on nearly every block | The "repetitive animation" tell. Now only section heads, the spec grid, the FAQ and the booking block animate. |
 | Agenda, "after you book" list and host card in three places | Consolidated into one "What we'll cover" block next to the form. |
+
+### Round 3 (brand logo)
+
+The client's logo (navy and sage, geometric sans wordmark) replaced the interim evergreen palette. The header and footer wordmark now follow the logo's lettering until the logo file itself is supplied.
