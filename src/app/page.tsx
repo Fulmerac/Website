@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { ApplyBand } from "@/components/apply-band";
 import { Photo } from "@/components/photo";
@@ -11,6 +12,13 @@ const chapters = [
   { title: "Get licensed, if you aren't yet", href: "/opportunity#licensing" },
   { title: "Build your business", href: "/opportunity#the-work" },
 ];
+
+export const metadata: Metadata = {
+  title: { absolute: "Independent Life Insurance Agent Careers — Secure Life Agency" },
+  description:
+    "Life insurance agent opportunities for people new to the industry and licensed agents looking for more independence. Independent, commission-based work. Learn what it involves and apply.",
+  alternates: { canonical: "/" },
+};
 
 const v = (i: number) => ({ "--i": i }) as React.CSSProperties;
 
@@ -39,6 +47,9 @@ export default function Home() {
                 <ButtonLink href="/opportunity" variant="light">Explore the Opportunity</ButtonLink>
                 <ButtonLink href="/join" variant="outlineLight">Apply to Join Our Team</ButtonLink>
               </div>
+              <p className="mt-6 text-[0.9rem] text-pewter">
+                Independent, commission-based life insurance agent opportunities.
+              </p>
             </div>
 
             <nav aria-labelledby="path-heading" className="lg:col-span-6 lg:col-start-7">
@@ -52,7 +63,7 @@ export default function Home() {
                       href={c.href}
                       className="group flex items-baseline gap-4 py-4 text-lg sm:text-xl"
                     >
-                      <span className="w-5 shrink-0 text-[0.95rem] text-steel tabular-nums">{i + 1}</span>
+                      <span className="w-5 shrink-0 text-[0.95rem] text-pewter tabular-nums">{i + 1}</span>
                       <span className="transition-colors group-hover:text-white sm:text-white/90">{c.title}</span>
                       <span
                         aria-hidden
@@ -72,7 +83,7 @@ export default function Home() {
         <div className="wrap grid gap-12 lg:grid-cols-12 lg:gap-16">
           <div className="lg:col-span-6">
             <h2 className="heading text-[clamp(2rem,4.5vw,3.25rem)]">
-              Independent work, with a team behind it.
+              An independent life insurance career, with a team behind you.
             </h2>
             <p className="mt-6 max-w-xl text-lg text-graphite">
               Independent life insurance agents help individuals and families choose coverage that protects the people
@@ -90,11 +101,11 @@ export default function Home() {
               </div>
               <div>
                 <dt className="font-semibold">You need a state license</dt>
-                <dd className="mt-1.5 text-graphite">Required before you sell. We&apos;ll walk you through it.</dd>
+                <dd className="mt-1.5 text-graphite">Required before you sell. Requirements vary by state.</dd>
               </div>
               <div>
-                <dt className="font-semibold">You don&apos;t start alone</dt>
-                <dd className="mt-1.5 text-graphite">Training and support from Cole and the team.</dd>
+                <dt className="font-semibold">You start with a conversation</dt>
+                <dd className="mt-1.5 text-graphite">Talk with Cole before you commit to anything.</dd>
               </div>
             </dl>
             <Link href="/opportunity" className="mt-10 inline-block font-semibold underline decoration-silver underline-offset-[6px] hover:decoration-black">
@@ -113,7 +124,7 @@ export default function Home() {
       <section aria-labelledby="paths-heading" className="bg-fog py-20 md:py-28">
         <div className="wrap">
           <h2 id="paths-heading" className="heading max-w-3xl text-[clamp(2rem,4.5vw,3.25rem)]">
-            Two ways in. Same standard of work.
+            For new and licensed life insurance agents.
           </h2>
           <div className="mt-14 grid gap-px overflow-hidden rounded-sm bg-black/15 md:grid-cols-2">
             <article className="bg-white p-7 sm:p-10">
@@ -126,7 +137,7 @@ export default function Home() {
               <ul className="mt-3 space-y-3 text-graphite">
                 <li className="flex gap-3"><Dash />Learn what the role involves before you commit.</li>
                 <li className="flex gap-3"><Dash />Complete your state&apos;s pre-licensing steps and exam.</li>
-                <li className="flex gap-3"><Dash />Train on products, conversations, and process.</li>
+                <li className="flex gap-3"><Dash />Learn the products, the process, and how to run a client conversation.</li>
               </ul>
               <ButtonLink href="/opportunity#new-agents" variant="outlineDark" className="mt-10">
                 The path for new agents

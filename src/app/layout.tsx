@@ -15,12 +15,13 @@ const archivo = Archivo({
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: "Secure Life Agency — Your Next Chapter Starts Here",
+    default: "Independent Life Insurance Agent Careers — Secure Life Agency",
     template: "%s — Secure Life Agency",
   },
   description:
     "Secure Life Agency recruits independent, commission-based life insurance agents — whether you're new to the industry or already licensed.",
-  openGraph: { siteName: site.name, type: "website" },
+  openGraph: { siteName: site.name, type: "website", locale: "en_US" },
+  twitter: { card: "summary_large_image" },
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
@@ -38,6 +39,19 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           {children}
         </main>
         <SiteFooter />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              name: site.name,
+              url: site.url,
+              ...(site.contact.email ? { email: site.contact.email } : {}),
+              ...(site.contact.phone ? { telephone: site.contact.phone } : {}),
+            }),
+          }}
+        />
       </body>
     </html>
   );

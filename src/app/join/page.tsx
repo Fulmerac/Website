@@ -1,21 +1,27 @@
 import type { Metadata } from "next";
 import { ApplicationForm } from "@/components/application-form";
 import { PageIntro } from "@/components/page-intro";
+import { emailConfig } from "@/lib/email";
 import { site } from "@/lib/site";
 
+// Reads delivery settings at request time so the form never accepts input it can't send.
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
-  title: "Join Our Team",
-  description: "Apply to join Secure Life Agency as an independent life insurance agent — new or already licensed.",
+  title: "Apply: Independent Life Insurance Agent Opportunities",
+  description:
+    "Apply to join Secure Life Agency as an independent, commission-based life insurance agent — whether you're new to the industry or already licensed.",
+  alternates: { canonical: "/join" },
 };
 
 const steps = [
   { title: "Submit your application", body: "Tell us about yourself, your license status, and what you're looking for." },
-  { title: "We review it", body: "Cole's team reads every application and follows up by phone or email." },
+  { title: "We review it", body: "The team reviews your application and contacts you by phone or email about next steps." },
   {
     title: "Introductory conversation",
-    body: "A conversation with Cole about your goals, the work, and whether this is a good fit — both ways.",
+    body: "Book a time to talk with Cole about your goals, the work, and whether this is a good fit — both ways.",
   },
-  { title: "Your next steps", body: "If it's a fit, we'll map out licensing (if needed), training, and getting started." },
+  { title: "Your next steps", body: "If it's a fit, you'll go over what getting started looks like, including licensing if you need it." },
 ];
 
 export default function JoinPage() {
@@ -52,7 +58,7 @@ export default function JoinPage() {
         <section aria-labelledby="form-heading" className="lg:col-span-7 lg:col-start-6">
           <h2 id="form-heading" className="heading text-[clamp(1.75rem,3.5vw,2.5rem)]">Application</h2>
           <div className="mt-8">
-            <ApplicationForm />
+            <ApplicationForm accepting={emailConfig() !== null} />
           </div>
         </section>
       </div>

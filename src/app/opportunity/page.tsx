@@ -4,9 +4,10 @@ import { PageIntro } from "@/components/page-intro";
 import { Placeholder } from "@/components/placeholder";
 
 export const metadata: Metadata = {
-  title: "The Opportunity",
+  title: "Become a Life Insurance Agent: The Independent Agent Opportunity",
   description:
-    "What independent life insurance agent work involves, how licensing works, and the realities of commission-based income.",
+    "What a life insurance sales career involves, how to become a licensed life insurance agent, and the realities of independent, commission-based work — for new and experienced agents.",
+  alternates: { canonical: "/opportunity" },
 };
 
 const sections = [
@@ -16,6 +17,53 @@ const sections = [
   { id: "licensing", label: "Licensing" },
   { id: "commission", label: "Commission-based work" },
   { id: "training", label: "Training and support" },
+  { id: "questions", label: "Common questions" },
+];
+
+type Faq = { q: string } & ({ text: string; a?: never } | { a: React.ReactNode; text?: never });
+
+/** `text` marks verified answers; only those are published as FAQ structured data. */
+const faqs: Faq[] = [
+  {
+    q: "Do I need experience to apply?",
+    text: "No. You don't need a background in insurance or sales. You do need to be willing to learn, comfortable talking with people, and ready to put real time into building the business.",
+  },
+  {
+    q: "Do I need a life insurance license before I apply?",
+    text: "No. You can apply whether you're already licensed, working toward your license, or just exploring the industry. You'll need a license from your state before you can sell.",
+  },
+  {
+    q: "Is there a salary?",
+    text: "No. Agents are independent and paid by commission. Income depends on your effort, skills, and other factors, varies from person to person, and is never guaranteed.",
+  },
+  {
+    q: "How long does it take to get licensed?",
+    text: "It depends on your state's education requirements, exam scheduling, and how long the state takes to process your application. Your state's department of insurance lists the exact steps.",
+  },
+  {
+    q: "Does it cost anything to get started?",
+    a: (
+      <>
+        <p>
+          Getting licensed usually involves fees for pre-licensing courses, the exam, a background check, and the
+          license application. Those amounts are set by your state and course providers.
+        </p>
+        <Placeholder className="mt-4">any other costs agents cover, and whether the agency helps with any of them.</Placeholder>
+      </>
+    ),
+  },
+  {
+    q: "Where and when do agents work?",
+    a: <Placeholder>remote, in-office, or hybrid; typical hours; and whether part-time is possible.</Placeholder>,
+  },
+  {
+    q: "I'm already licensed. What would change if I joined?",
+    a: <Placeholder>contracting, carrier access, how existing clients are handled, and any transition steps.</Placeholder>,
+  },
+  {
+    q: "What happens on the introductory call?",
+    text: "You and Cole talk through your background, your goals, and your questions about the work. It's a chance for both of you to decide whether it's a fit, and there's no commitment.",
+  },
 ];
 
 export default function OpportunityPage() {
@@ -147,9 +195,37 @@ export default function OpportunityPage() {
               technology, lead programs, and team meetings.
             </Placeholder>
           </Section>
+
+          <Section id="questions" title="Common questions">
+            <div className="border-t border-black/10">
+              {faqs.map((f) => (
+                <details key={f.q} className="group border-b border-black/10">
+                  <summary className="flex cursor-pointer list-none items-center justify-between gap-6 py-5 font-semibold text-ink [&::-webkit-details-marker]:hidden">
+                    {f.q}
+                    <svg aria-hidden viewBox="0 0 16 16" className="size-4 shrink-0 transition-transform duration-200 group-open:rotate-45">
+                      <path d="M8 2v12M2 8h12" stroke="currentColor" strokeWidth="1.5" />
+                    </svg>
+                  </summary>
+                  <div className="pb-6 text-base">{f.text ? <p>{f.text}</p> : f.a}</div>
+                </details>
+              ))}
+            </div>
+          </Section>
         </article>
       </div>
 
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: faqs
+              .filter((f) => f.text)
+              .map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.text } })),
+          }),
+        }}
+      />
       <ApplyBand title="Sound like your kind of work?" />
     </>
   );

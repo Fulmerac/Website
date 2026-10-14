@@ -23,6 +23,7 @@ export function SiteFooter() {
             <li><Link className="hover:text-white" href="/opportunity">The Opportunity</Link></li>
             <li><Link className="hover:text-white" href="/about">About Cole</Link></li>
             <li><Link className="hover:text-white" href="/join">Apply to Join Our Team</Link></li>
+            <li><Link className="hover:text-white" href="/privacy">Privacy policy</Link></li>
           </ul>
         </div>
 
@@ -40,7 +41,7 @@ export function SiteFooter() {
       </div>
 
       <div className="border-t border-white/10">
-        <div className="wrap space-y-4 py-8 text-[0.8rem] leading-relaxed text-steel">
+        <div className="wrap space-y-4 py-8 text-[0.8rem] leading-relaxed text-pewter">
           <p className="max-w-4xl">
             Agents with {site.name} work independently and are paid by commission. There is no salary, and income
             depends on individual effort, skill, and other factors. Nothing on this site is a promise or guarantee of

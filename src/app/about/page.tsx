@@ -6,7 +6,9 @@ import { Placeholder } from "@/components/placeholder";
 
 export const metadata: Metadata = {
   title: "About Cole",
-  description: "Meet Cole, owner of Secure Life Agency, and learn how he leads and develops agents.",
+  description:
+    "Meet Cole, owner of Secure Life Agency, and learn how he leads the independent life insurance agents on his team.",
+  alternates: { canonical: "/about" },
 };
 
 export default function AboutPage() {

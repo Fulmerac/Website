@@ -31,7 +31,7 @@ export function SiteHeader() {
             </Link>
           ))}
           <ButtonLink href="/join" variant="light" className="min-h-10 px-5 text-sm">
-            Apply
+            Apply to Join Our Team
           </ButtonLink>
         </nav>
 

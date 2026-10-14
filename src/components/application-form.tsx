@@ -1,6 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm, type FieldErrors } from "react-hook-form";
@@ -17,7 +18,7 @@ import {
 
 type FormValues = Omit<Application, "consent"> & { consent: boolean };
 
-export function ApplicationForm() {
+export function ApplicationForm({ accepting }: { accepting: boolean }) {
   const router = useRouter();
   const [serverError, setServerError] = useState<string | null>(null);
   const {
@@ -57,7 +58,18 @@ export function ApplicationForm() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-10">
-      <p className="text-[0.95rem] text-steel">All fields are required unless marked optional.</p>
+      {!accepting ? (
+        <div role="note" className="rounded-lg border border-black/20 bg-fog px-5 py-4 text-[0.95rem]">
+          <p className="font-semibold">Online applications aren&apos;t open yet.</p>
+          <p className="mt-1 text-graphite">
+            The form below can&apos;t be submitted until application delivery is set up. Nothing you enter will be sent.
+          </p>
+        </div>
+      ) : null}
+      <p className="text-[0.95rem] text-steel">
+        All fields are required unless marked optional. We only ask for what we need to contact you — please don&apos;t
+        include your Social Security number or financial details.
+      </p>
 
       <fieldset className="space-y-6">
         <legend className="heading mb-6 text-xl">About you</legend>
@@ -171,7 +183,8 @@ export function ApplicationForm() {
           />
           <span>
             Secure Life Agency can contact me by phone, text, or email about my application. Message and data rates may
-            apply.
+            apply. See our{" "}
+            <Link href="/privacy" className="underline underline-offset-2">privacy policy</Link>.
           </span>
         </label>
         <FieldError id="consent-error" message={err("consent")} />
@@ -187,7 +200,7 @@ export function ApplicationForm() {
             </p>
           ) : null}
         </div>
-        <Button type="submit" disabled={isSubmitting} className="w-full sm:w-auto sm:px-10">
+        <Button type="submit" disabled={!accepting || isSubmitting} className="w-full sm:w-auto sm:px-10">
           {isSubmitting ? "Submitting application…" : "Submit application"}
         </Button>
       </div>

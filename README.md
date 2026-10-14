@@ -1,10 +1,36 @@
 # Secure Life Agency — recruiting website
 
-Next.js site for recruiting independent, commission-based life insurance agents.
+A recruiting site for independent, commission-based life insurance agents. Its job is to turn visitors into qualified applicants and applicants into introductory calls with Cole.
 
-Funnel: **Home → The Opportunity → Join Our Team (application) → Thank you → Interview scheduling**
+**Funnel:** Home → The Opportunity → Join Our Team (application) → Application received → Book an introductory call
 
-## Run it
+## Pages
+
+| Page | Path | Purpose |
+|---|---|---|
+| Home | `/` | Who it's for, what the work is, the two paths in (new / licensed), how the team works, apply. |
+| The Opportunity | `/opportunity` | What the work involves, new vs. licensed paths, licensing steps, commission realities, training, FAQ. |
+| About Cole | `/about` | Cole's background and leadership approach (placeholders until supplied). |
+| Join Our Team | `/join` | What happens after you apply, and the application form. |
+| Application received | `/thank-you` | Confirmation and the interview-booking step. Not indexed. |
+| Privacy Policy | `/privacy` | What the form collects and why (full policy to be supplied). |
+
+The primary conversion action is always labelled **Apply to Join Our Team**; the hero's first button, **Explore the Opportunity**, leads into the funnel.
+
+## How applications are delivered
+
+The form posts to `/api/apply`, which validates the answers and emails them to Cole using [Resend](https://resend.com). Replying to that email goes straight to the applicant.
+
+**The site never claims an application was sent unless the email was actually delivered.**
+
+- **Not configured:** the Join page says applications aren't open yet, and the submit button is disabled. The API refuses submissions with a `503` error.
+- **Delivery fails:** the applicant stays on the form with an explanation, and nothing is lost from what they typed.
+
+The form collects only what's needed to follow up. It asks for no Social Security number, date of birth, or financial details.
+
+## Run it locally
+
+Requires Node.js 20 or later.
 
 ```bash
 npm install
@@ -12,33 +38,78 @@ cp .env.example .env.local   # fill in the values below
 npm run dev                  # http://localhost:3000
 ```
 
-Without email settings, applications submitted in development are printed to the terminal. In production they're rejected with a message until email is configured.
+## Settings
 
-## Configuration (`.env.local` or your host's environment variables)
+Set these in `.env.local` locally, or in your host's environment variables in production.
 
-| Variable | Purpose |
-|---|---|
-| `RESEND_API_KEY` | API key from [Resend](https://resend.com), which sends application emails. |
-| `APPLICATION_TO_EMAIL` | Cole's inbox. Comma-separate multiple addresses. |
-| `APPLICATION_FROM_EMAIL` | Sender on a domain verified in Resend, e.g. `Secure Life Agency <applications@yourdomain.com>`. |
-| `NEXT_PUBLIC_SCHEDULING_URL` | Optional booking link (Calendly, Cal.com). Adds a "Book your introductory call" button to the thank-you page. |
-| `NEXT_PUBLIC_SITE_URL` | The live site URL, used in page metadata. |
+| Variable | Required | Purpose |
+|---|---|---|
+| `RESEND_API_KEY` | Yes | API key from Resend. |
+| `APPLICATION_TO_EMAIL` | Yes | Cole's designated business email. Separate multiple addresses with commas. |
+| `APPLICATION_FROM_EMAIL` | Yes | Sender on a domain verified in Resend, e.g. `Secure Life Agency <applications@yourdomain.com>`. |
+| `NEXT_PUBLIC_SCHEDULING_URL` | No | Cole's booking link (Calendly, Cal.com, …). Until it's set, the confirmation page shows a marked placeholder. |
+| `NEXT_PUBLIC_SITE_URL` | Yes, in production | The live URL, e.g. `https://securelifeagency.com`. Used for the sitemap, canonical links, and share previews. |
 
-Each application email includes every answer, and replying to it goes straight to the applicant.
+## Deploy (Vercel)
 
-## Before launch: content to supply
+Vercel is the simplest host for this project. It runs the `/api/apply` function the form needs.
 
-Anything unverified shows on the site as a dashed **"To confirm"** box, so nothing invented can go live looking like a real claim. Search the code for `<Placeholder` to find them all.
+1. **Import the repository.** In Vercel, choose **Add New → Project**, import this repository, and keep the detected Next.js settings.
+2. **Set up email.**
+   1. Create a Resend account.
+   2. Add and verify your domain. This means adding the DNS records Resend gives you wherever your domain is managed.
+   3. Create an API key.
+3. **Add the settings above** in **Project → Settings → Environment Variables**, then deploy.
+4. **Connect your domain** in **Project → Settings → Domains**.
+5. **Send a test application** from the live site and confirm it arrives in Cole's inbox.
+6. **Add the scheduling link.** When Cole has one, set `NEXT_PUBLIC_SCHEDULING_URL` and redeploy. `NEXT_PUBLIC_` values are built into the pages, so they only take effect after a redeploy.
 
-- [ ] **Logo** — add the original file to `public/brand/` and set `logo` in `src/lib/site.ts`. Until then the agency name is shown as text.
-- [ ] **Contact details** — email, phone, location in `src/lib/site.ts`.
-- [ ] **Training, support, and structure** — homepage "How the team works" (`src/app/page.tsx`) and Opportunity → Training and support.
-- [ ] **Experienced-agent specifics** — Opportunity → If you're already licensed.
-- [ ] **Cole's bio, credentials, story, and leadership approach** — `src/app/about/page.tsx`.
-- [ ] **Disclosures** — agency license details and any carrier/IMO or state-required language (footer).
-- [ ] **Photos** — real photos of Cole and the team in `public/photos/`, passed as `src` to each `<Photo>` slot. Each slot describes the shot it needs.
-- [ ] Have the commission and licensing copy reviewed for your state(s) and partners.
+The site also runs on any host that supports Next.js server functions, such as Netlify or a Node server running `npm run build && npm start`.
+
+A static-only host such as GitHub Pages can't run the form. On one of those, applications won't be delivered.
+
+## Tests
+
+```bash
+npm run lint
+npm run test:e2e   # builds, then runs Playwright on desktop and mobile
+```
+
+The end-to-end tests cover:
+
+- **Every page:** exactly one `h1`, a title and meta description, no sideways scrolling on a phone, and no serious accessibility issues (axe).
+- **Navigation:** the header, the mobile menu, and the hero buttons.
+- **Validation:** every required-field error, and focus moving to the first problem.
+- **Submission:** a delivered application reaching the confirmation page, and a failed delivery keeping the applicant on the form.
+- **Not configured:** the site refusing applications instead of pretending to send them.
+
+## Before launch: information that must come from Cole
+
+Anything unverified appears on the site as a dashed **"To confirm"** box, so nothing invented can go live looking like a real claim. Search the code for `<Placeholder` to find each one.
+
+- [ ] **Logo.** Add the original file to `public/brand/`, set `logo` in `src/lib/site.ts`, and replace `src/app/icon.svg` with a version of it. Until then the agency name is shown as text and the browser-tab icon is a neutral black square.
+- [ ] **Contact details.** Business email, phone, and location go in `src/lib/site.ts`. Don't list states or service areas until they're confirmed.
+- [ ] **Training, support, and working structure.**
+  - Training, mentorship, licensing help, products and carriers, leads, schedule and location, and costs to the agent, on the homepage (`src/app/page.tsx`).
+  - The matching section on the Opportunity page (`src/app/opportunity/page.tsx`).
+- [ ] **Experienced-agent specifics.** Contracting, carrier access, how existing clients are handled, and transition steps (Opportunity page and FAQ).
+- [ ] **FAQ answers** marked "To confirm": costs, where and when agents work, and what changes for licensed agents.
+- [ ] **Cole's biography, credentials, personal story, and leadership approach** (`src/app/about/page.tsx`).
+- [ ] **Disclosures.**
+  - The agency's license details.
+  - Any carrier or marketing-organization affiliation.
+  - Any state-required insurance disclosures (footer).
+- [ ] **Privacy policy**, reviewed for your business (`src/app/privacy/page.tsx`).
+- [ ] **Photos.** Real photos of Cole and the team go in `public/photos/`, passed as `src` to each `<Photo>` slot. Each slot describes the shot it needs. Next.js resizes and compresses them automatically.
+- [ ] **Compliance review.** Have the commission, licensing, and contact-consent wording reviewed for your state(s) and partners.
 
 ## Stack
 
-Next.js 15 (App Router), TypeScript, Tailwind CSS 4, React Hook Form + Zod (validation shared by the form and the API), Resend for email. Typeface: Archivo (Google Fonts), using its width axis for display type.
+| Part | Choice |
+|---|---|
+| Framework | Next.js 15 (App Router), TypeScript |
+| Styling | Tailwind CSS 4 |
+| Form validation | React Hook Form and Zod, with one schema shared by the form and the API |
+| Email | Resend |
+| Tests | Playwright and axe |
+| Typeface | Archivo from Google Fonts, self-hosted by Next.js; its width axis is used for the large display type |

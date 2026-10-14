@@ -48,7 +48,7 @@ export const applicationSchema = z.object({
   motivation: z
     .string()
     .trim()
-    .min(20, "Tell us a little more — a few sentences is plenty.")
+    .min(10, "Add a sentence or two about why you're interested.")
     .max(2000, "Keep this under 2,000 characters."),
   availability: z
     .array(z.enum(values(AVAILABILITY)))

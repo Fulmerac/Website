@@ -8,7 +8,12 @@ import {
   LICENSE_STATUS,
   type Application,
 } from "@/lib/application";
+import { emailConfig } from "@/lib/email";
 import { site } from "@/lib/site";
+
+const NOT_ACCEPTING = `Online applications aren't open yet, so your application was not sent.${
+  site.contact.email ? ` Email ${site.contact.email} instead.` : ""
+}`;
 
 const escape = (s: string) =>
   s.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]!);
@@ -40,20 +45,12 @@ export async function POST(request: Request) {
 
   const application = parsed.data;
   const rows = summarize(application);
-  const apiKey = process.env.RESEND_API_KEY;
-  const to = process.env.APPLICATION_TO_EMAIL;
-  const from = process.env.APPLICATION_FROM_EMAIL;
+  const config = emailConfig();
 
-  if (!apiKey || !to || !from) {
-    if (process.env.NODE_ENV !== "production") {
-      console.info("[apply] Email is not configured; application logged instead:\n", Object.fromEntries(rows));
-      return NextResponse.json({ ok: true });
-    }
-    console.error("[apply] Missing RESEND_API_KEY, APPLICATION_TO_EMAIL, or APPLICATION_FROM_EMAIL.");
-    return NextResponse.json(
-      { error: `Applications can't be submitted right now. Please try again later${site.contact.email ? ` or email ${site.contact.email}` : ""}.` },
-      { status: 503 },
-    );
+  // Never report success unless the application was actually delivered.
+  if (!config) {
+    console.error("[apply] Application not delivered: RESEND_API_KEY, APPLICATION_TO_EMAIL, or APPLICATION_FROM_EMAIL is missing.");
+    return NextResponse.json({ error: NOT_ACCEPTING }, { status: 503 });
   }
 
   const text = rows.map(([k, v]) => `${k}: ${v}`).join("\n\n");
@@ -65,9 +62,9 @@ export async function POST(request: Request) {
     )
     .join("")}</table>`;
 
-  const { error } = await new Resend(apiKey).emails.send({
-    from,
-    to: to.split(",").map((s) => s.trim()),
+  const { error } = await new Resend(config.apiKey).emails.send({
+    from: config.from,
+    to: config.to,
     replyTo: application.email,
     subject: `New application: ${application.fullName} (${labelFor(LICENSE_STATUS, application.licenseStatus)}, ${application.state})`,
     text,
