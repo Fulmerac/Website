@@ -1,0 +1,99 @@
+@import "tailwindcss";
+
+@theme {
+  --color-black: #000000;
+  --color-ink: #1c1d20;
+  --color-graphite: #2e3035;
+  --color-steel: #6b6f76;
+  --color-silver: #b9bdc3;
+  --color-fog: #ecedef;
+  --color-white: #ffffff;
+  --color-error: #b42318;
+  --color-error-dark: #ff9c8f;
+
+  --font-sans: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
+
+  --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+  body {
+    background: var(--color-white);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-stretch: 100%;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3 {
+    text-wrap: balance;
+  }
+  p {
+    text-wrap: pretty;
+  }
+  :focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 3px;
+  }
+  ::selection {
+    background: var(--color-silver);
+    color: var(--color-black);
+  }
+}
+
+@layer components {
+  /* Wide display type: the brand's one loud typographic gesture. */
+  .display {
+    font-stretch: 125%;
+    font-weight: 700;
+    letter-spacing: -0.035em;
+    line-height: 0.92;
+  }
+  .heading {
+    font-stretch: 112%;
+    font-weight: 650;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+  }
+  .wrap {
+    width: 100%;
+    max-width: 78rem;
+    margin-inline: auto;
+    padding-inline: 1rem;
+  }
+  @media (min-width: 640px) {
+    .wrap { padding-inline: 2rem; }
+  }
+}
+
+/* The hero's table of contents draws in once, in order. */
+@keyframes toc-in {
+  from { opacity: 0; transform: translateY(0.5rem); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes rule-in {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+.toc-item {
+  animation: toc-in 700ms var(--ease-out-quint) both;
+  animation-delay: calc(450ms + var(--i) * 110ms);
+}
+.toc-item .leader {
+  transform-origin: left;
+  animation: rule-in 900ms var(--ease-out-quint) both;
+  animation-delay: calc(550ms + var(--i) * 110ms);
+}
+.hero-line {
+  animation: toc-in 900ms var(--ease-out-quint) both;
+  animation-delay: calc(var(--i) * 90ms);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .toc-item, .toc-item .leader, .hero-line { animation: none; }
+}
