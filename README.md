@@ -109,7 +109,7 @@ Anything unverified appears on the site as a dashed **"To confirm"** box, so not
   - Any carrier or marketing-organization affiliation.
   - Any state-required insurance disclosures (footer).
 - [ ] **Privacy policy**, reviewed for your business (`src/app/privacy/page.tsx`).
-- [ ] **Cole's portrait.** Save it as `public/photos/cole.jpg`; the About page picks it up automatically on the next build.
+- [x] **Cole's portrait** is at `public/photos/cole.jpg`. Replace that file to change it.
 - [ ] **Other photos.** Real photos of the team go in `public/photos/`, passed as `src` to each `<Photo>` slot. Each slot describes the shot it needs. Next.js resizes and compresses them automatically.
 - [ ] **Compliance review.** Have the commission, licensing, and contact-consent wording reviewed for your state(s) and partners.
 
