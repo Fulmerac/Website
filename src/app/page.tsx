@@ -16,7 +16,7 @@ const chapters = [
 export const metadata: Metadata = {
   title: { absolute: "Independent Life Insurance Agent Careers — Secure Life Agency" },
   description:
-    "Life insurance agent opportunities for people new to the industry and licensed agents looking for more independence. Independent, commission-based work. Learn what it involves and apply.",
+    "Life insurance agent opportunities for people new to the industry and licensed agents looking for more independence. Independent, commission-based, part-time or full-time, from anywhere in the U.S.",
   alternates: { canonical: "/" },
 };
 
@@ -75,6 +75,15 @@ export default function Home() {
               </ol>
             </nav>
           </div>
+
+          <dl className="mt-20 grid gap-x-10 gap-y-8 border-t border-white/15 pt-10 sm:grid-cols-2 lg:mt-24 lg:grid-cols-4">
+            {facts.map((f) => (
+              <div key={f.term}>
+                <dt className="font-semibold">{f.term}</dt>
+                <dd className="mt-1.5 text-[0.95rem] text-silver">{f.body}</dd>
+              </div>
+            ))}
+          </dl>
         </div>
       </section>
 
@@ -177,8 +186,9 @@ export default function Home() {
             {support.map((item) => (
               <div key={item.term} className="grid gap-3 py-6 sm:grid-cols-3 sm:gap-8">
                 <dt className="font-semibold">{item.term}</dt>
-                <dd className="sm:col-span-2">
-                  <Placeholder>{item.todo}</Placeholder>
+                <dd className="space-y-3 sm:col-span-2">
+                  {item.body ? <p className="text-graphite">{item.body}</p> : null}
+                  {item.todo ? <Placeholder>{item.todo}</Placeholder> : null}
                 </dd>
               </div>
             ))}
@@ -191,13 +201,32 @@ export default function Home() {
   );
 }
 
-const support = [
+const facts = [
+  { term: "Part-time or full-time", body: "You choose how much time you put in." },
+  { term: "Anywhere in the U.S.", body: "The agency serves clients in all 50 states." },
+  { term: "Leads at every level of intent", body: "From people just browsing to people ready to buy." },
+  { term: "Final expense focus", body: "Plus term, whole life, burial insurance, and annuities." },
+];
+
+/** `body` holds confirmed details; `todo` marks what still needs Cole's input. */
+const support: { term: string; body?: string; todo?: string }[] = [
   { term: "Training", todo: "format (classroom, virtual, self-paced), length, and what it covers." },
   { term: "Mentorship", todo: "who new agents work alongside, and how often." },
   { term: "Licensing help", todo: "what support is offered for pre-licensing and the exam, and who pays for what." },
-  { term: "Products and carriers", todo: "the types of coverage agents offer and the carriers available." },
-  { term: "Clients and leads", todo: "how agents find clients, and whether leads are provided or purchased." },
-  { term: "Schedule and location", todo: "remote, in-office, or hybrid; expected time commitment." },
+  {
+    term: "What you'd offer",
+    body: "Final expense life insurance is the focus. Agents also offer term life, whole life, burial insurance, and annuities.",
+    todo: "the carriers agents can write with.",
+  },
+  {
+    term: "Clients and leads",
+    body: "Agents have access to leads from multiple lead vendors, at low, medium, and high levels of intent.",
+    todo: "how leads are distributed, and whether agents pay for them.",
+  },
+  {
+    term: "Schedule and location",
+    body: "Part-time or full-time. The agency serves clients in all 50 states, so you can work from anywhere in the U.S.",
+  },
   { term: "Costs to the agent", todo: "any licensing, E&O insurance, technology, or lead costs agents cover." },
 ];
 

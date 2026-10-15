@@ -47,6 +47,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
               "@type": "Organization",
               name: site.name,
               url: site.url,
+              areaServed: "US",
               ...(site.contact.email ? { email: site.contact.email } : {}),
               ...(site.contact.phone ? { telephone: site.contact.phone } : {}),
             }),

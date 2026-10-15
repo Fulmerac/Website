@@ -88,12 +88,14 @@ The end-to-end tests cover:
 Anything unverified appears on the site as a dashed **"To confirm"** box, so nothing invented can go live looking like a real claim. Search the code for `<Placeholder` to find each one.
 
 - [ ] **Logo.** Add the original file to `public/brand/`, set `logo` in `src/lib/site.ts`, and replace `src/app/icon.svg` with a version of it. Until then the agency name is shown as text and the browser-tab icon is a neutral black square.
-- [ ] **Contact details.** Business email, phone, and location go in `src/lib/site.ts`. Don't list states or service areas until they're confirmed.
-- [ ] **Training, support, and working structure.**
-  - Training, mentorship, licensing help, products and carriers, leads, schedule and location, and costs to the agent, on the homepage (`src/app/page.tsx`).
+- [ ] **Contact details.** Business email, phone, and location go in `src/lib/site.ts`.
+- [ ] **Training, support, and costs.**
+  - Training, mentorship, licensing help, and costs to the agent, on the homepage (`src/app/page.tsx`).
   - The matching section on the Opportunity page (`src/app/opportunity/page.tsx`).
+- [ ] **Carriers.** Which carriers agents can write with, and whether the site may show their names or logos.
+- [ ] **Lead details.** How leads are distributed, and whether agents pay for them.
 - [ ] **Experienced-agent specifics.** Contracting, carrier access, how existing clients are handled, and transition steps (Opportunity page and FAQ).
-- [ ] **FAQ answers** marked "To confirm": costs, where and when agents work, and what changes for licensed agents.
+- [ ] **FAQ answers** marked "To confirm": costs, and what changes for licensed agents.
 - [ ] **Cole's biography, credentials, personal story, and leadership approach** (`src/app/about/page.tsx`).
 - [ ] **Disclosures.**
   - The agency's license details.
@@ -102,6 +104,15 @@ Anything unverified appears on the site as a dashed **"To confirm"** box, so not
 - [ ] **Privacy policy**, reviewed for your business (`src/app/privacy/page.tsx`).
 - [ ] **Photos.** Real photos of Cole and the team go in `public/photos/`, passed as `src` to each `<Photo>` slot. Each slot describes the shot it needs. Next.js resizes and compresses them automatically.
 - [ ] **Compliance review.** Have the commission, licensing, and contact-consent wording reviewed for your state(s) and partners.
+
+## Confirmed facts used on the site
+
+These are confirmed. Update them here and in the code if anything changes.
+
+- Agents can work part-time or full-time.
+- The agency serves clients in all 50 states, and agents can work from anywhere in the U.S.
+- Agents have access to leads from multiple lead vendors, at low, medium, and high levels of intent.
+- Final expense life insurance is the focus. Agents also offer term life, whole life, burial insurance, and annuities.
 
 ## Stack
 

@@ -10,7 +10,7 @@ export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
   title: "Apply: Independent Life Insurance Agent Opportunities",
   description:
-    "Apply to join Secure Life Agency as an independent, commission-based life insurance agent — whether you're new to the industry or already licensed.",
+    "Apply to join Secure Life Agency as an independent, commission-based life insurance agent — new or already licensed, part-time or full-time, anywhere in the U.S.",
   alternates: { canonical: "/join" },
 };
 
@@ -30,7 +30,7 @@ export default function JoinPage() {
       <PageIntro title="Join Our Team">
         <p>
           We&apos;re looking for people who want to build a business helping others protect what matters — whether
-          you&apos;re new to life insurance or already licensed.
+          you&apos;re new to life insurance or already licensed. Part-time or full-time, from anywhere in the U.S.
         </p>
       </PageIntro>
 

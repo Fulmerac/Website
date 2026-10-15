@@ -4,14 +4,16 @@ import { PageIntro } from "@/components/page-intro";
 import { Placeholder } from "@/components/placeholder";
 
 export const metadata: Metadata = {
-  title: "Become a Life Insurance Agent: The Independent Agent Opportunity",
+  title: "Become a Life Insurance Agent: Independent, Part-Time or Full-Time",
   description:
-    "What a life insurance sales career involves, how to become a licensed life insurance agent, and the realities of independent, commission-based work — for new and experienced agents.",
+    "What a life insurance sales career with a final expense focus involves, how to become a licensed agent, how leads work, and the realities of independent, commission-based work — for new and experienced agents.",
   alternates: { canonical: "/opportunity" },
 };
 
 const sections = [
   { id: "the-work", label: "What the work involves" },
+  { id: "products", label: "What you'd offer" },
+  { id: "leads", label: "Leads" },
   { id: "new-agents", label: "If you're new" },
   { id: "licensed-agents", label: "If you're licensed" },
   { id: "licensing", label: "Licensing" },
@@ -41,6 +43,18 @@ const faqs: Faq[] = [
     text: "It depends on your state's education requirements, exam scheduling, and how long the state takes to process your application. Your state's department of insurance lists the exact steps.",
   },
   {
+    q: "What would I be selling?",
+    text: "Final expense life insurance is the focus. Agents also offer term life, whole life, burial insurance, and annuities.",
+  },
+  {
+    q: "Are leads available?",
+    text: "Yes. Agents have access to leads from multiple lead vendors, at low, medium, and high levels of intent.",
+  },
+  {
+    q: "Can I do this part-time?",
+    text: "Yes. Agents work part-time or full-time. The agency serves clients in all 50 states, so you can work from anywhere in the U.S.",
+  },
+  {
     q: "Does it cost anything to get started?",
     a: (
       <>
@@ -48,13 +62,12 @@ const faqs: Faq[] = [
           Getting licensed usually involves fees for pre-licensing courses, the exam, a background check, and the
           license application. Those amounts are set by your state and course providers.
         </p>
-        <Placeholder className="mt-4">any other costs agents cover, and whether the agency helps with any of them.</Placeholder>
+        <Placeholder className="mt-4">
+          any other costs agents cover — including whether leads are paid for — and whether the agency helps with
+          any of them.
+        </Placeholder>
       </>
     ),
-  },
-  {
-    q: "Where and when do agents work?",
-    a: <Placeholder>remote, in-office, or hybrid; typical hours; and whether part-time is possible.</Placeholder>,
   },
   {
     q: "I'm already licensed. What would change if I joined?",
@@ -97,15 +110,50 @@ export default function OpportunityPage() {
               conversation: understanding someone&apos;s situation, explaining options clearly, and helping them choose
               coverage that fits.
             </p>
+            <p>
+              You can do this part-time or full-time, and from anywhere in the U.S. — the agency serves clients in all
+              50 states.
+            </p>
             <List
               items={[
-                "Finding and following up with prospective clients.",
+                "Working leads and following up with prospective clients.",
                 "Meeting with people — in person, by phone, or online — to understand their needs.",
                 "Explaining coverage options and completing applications accurately.",
                 "Staying in touch with clients as their lives change.",
                 "Managing your own schedule, pipeline, and goals.",
               ]}
             />
+          </Section>
+
+          <Section id="products" title="What you'd offer">
+            <p>
+              The focus is final expense life insurance: whole life coverage with a smaller benefit, usually meant to
+              cover funeral costs and other end-of-life expenses so families aren&apos;t left with the bill.
+            </p>
+            <p>Agents also offer:</p>
+            <List items={["Term life insurance", "Whole life insurance", "Burial insurance", "Annuities"]} />
+            <Placeholder>the carriers agents can write with.</Placeholder>
+          </Section>
+
+          <Section id="leads" title="Leads">
+            <p>
+              You don&apos;t have to build a client list from nothing. Agents have access to leads from multiple lead
+              vendors, at three levels of intent:
+            </p>
+            <dl className="grid gap-px overflow-hidden rounded-sm border border-black/10 bg-black/10 sm:grid-cols-3">
+              {[
+                ["Low intent", "People just browsing."],
+                ["Medium intent", "People gathering information."],
+                ["High intent", "People ready to buy."],
+              ].map(([term, desc]) => (
+                <div key={term} className="bg-white p-5">
+                  <dt className="font-semibold text-ink">{term}</dt>
+                  <dd className="mt-1 text-base">{desc}</dd>
+                </div>
+              ))}
+            </dl>
+            <p>Higher-intent leads are closer to a decision; lower-intent leads take more follow-up.</p>
+            <Placeholder>how leads are distributed, and whether agents pay for them.</Placeholder>
           </Section>
 
           <Section id="new-agents" title="If you're new to the industry">
@@ -163,8 +211,9 @@ export default function OpportunityPage() {
               ))}
             </ol>
             <p>
-              Licenses must be renewed, usually with continuing education. To sell in other states, agents typically add
-              non-resident licenses. Check your state&apos;s department of insurance for exact requirements.
+              Licenses must be renewed, usually with continuing education. Your first license comes from your home state.
+              Because the agency serves clients in all 50 states, you can add non-resident licenses to help clients in
+              other states. Check your state&apos;s department of insurance for exact requirements.
             </p>
           </Section>
 
@@ -192,7 +241,7 @@ export default function OpportunityPage() {
             <p>What you can expect from Cole and the team once you join:</p>
             <Placeholder>
               verified details of training (format, length, topics), mentorship, licensing support, tools and
-              technology, lead programs, and team meetings.
+              technology, and team meetings.
             </Placeholder>
           </Section>
 
