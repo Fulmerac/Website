@@ -4,6 +4,7 @@ import { ApplyBand } from "@/components/apply-band";
 import { Photo } from "@/components/photo";
 import { Placeholder } from "@/components/placeholder";
 import { ButtonLink } from "@/components/ui/button";
+import { showPlaceholders } from "@/lib/site";
 
 const chapters = [
   { title: "Explore the opportunity", href: "/opportunity" },
@@ -29,9 +30,15 @@ export default function Home() {
       <section className="bg-black text-white">
         <div className="wrap pt-10 pb-20 sm:pt-16 md:pb-28">
           <h1 className="display text-[clamp(3.1rem,11.5vw,9.75rem)]">
-            <span className="hero-line block" style={v(0)}>Your Next</span>
-            <span className="hero-line block" style={v(1)}>Chapter</span>
-            <span className="hero-line block" style={v(2)}>Starts Here.</span>
+            <span className="hero-line block" style={v(0)}>
+              Your Next
+            </span>
+            <span className="hero-line block" style={v(1)}>
+              Chapter
+            </span>
+            <span className="hero-line block" style={v(2)}>
+              Starts Here.
+            </span>
           </h1>
 
           <div className="mt-14 grid gap-14 lg:mt-20 lg:grid-cols-12">
@@ -40,12 +47,16 @@ export default function Home() {
                 Build relationships. Develop your skills. Create a business around your ambitions.
               </p>
               <p className="mt-5 max-w-md text-silver">
-                Whether you&apos;re entering the life insurance industry or bringing years of experience, take the
-                next step with Secure Life Agency.
+                Whether you&apos;re entering the life insurance industry or bringing years of experience, take the next
+                step with Secure Life Agency.
               </p>
               <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-                <ButtonLink href="/opportunity" variant="light">Explore the Opportunity</ButtonLink>
-                <ButtonLink href="/join" variant="outlineLight">Apply to Join Our Team</ButtonLink>
+                <ButtonLink href="/opportunity" variant="light">
+                  Explore the Opportunity
+                </ButtonLink>
+                <ButtonLink href="/join" variant="outlineLight">
+                  Apply to Join Our Team
+                </ButtonLink>
               </div>
               <p className="mt-6 text-[0.9rem] text-pewter">
                 Independent, commission-based life insurance agent opportunities.
@@ -59,10 +70,7 @@ export default function Home() {
               <ol className="mt-4 border-t border-white/15">
                 {chapters.map((c, i) => (
                   <li key={c.title} className="toc-item border-b border-white/15" style={v(i + 1)}>
-                    <Link
-                      href={c.href}
-                      className="group flex items-baseline gap-4 py-4 text-lg sm:text-xl"
-                    >
+                    <Link href={c.href} className="group flex items-baseline gap-4 py-4 text-lg sm:text-xl">
                       <span className="w-5 shrink-0 text-[0.95rem] text-pewter tabular-nums">{i + 1}</span>
                       <span className="transition-colors group-hover:text-white sm:text-white/90">{c.title}</span>
                       <span
@@ -117,14 +125,19 @@ export default function Home() {
                 <dd className="mt-1.5 text-graphite">Talk with Cole before you commit to anything.</dd>
               </div>
             </dl>
-            <Link href="/opportunity" className="mt-10 inline-block font-semibold underline decoration-silver underline-offset-[6px] hover:decoration-black">
+            <Link
+              href="/opportunity"
+              className="mt-10 inline-block font-semibold underline decoration-silver underline-offset-[6px] hover:decoration-black"
+            >
               Read what the work really involves
             </Link>
           </div>
           <Photo
+            src="/photos/cole.jpg"
             className="aspect-[4/5] lg:col-span-5 lg:col-start-8"
-            alt="An agent meeting with a client"
-            brief="A real agent from the team sitting across from a client at a kitchen table, mid-conversation. Natural light, no posing."
+            alt="Cole, owner of Secure Life Agency, smiling outside in a black button-up shirt"
+            caption="Cole, owner of Secure Life Agency"
+            brief="Cole"
           />
         </div>
       </section>
@@ -144,9 +157,18 @@ export default function Home() {
               </p>
               <h4 className="mt-8 text-[0.95rem] font-semibold">Where you&apos;d begin</h4>
               <ul className="mt-3 space-y-3 text-graphite">
-                <li className="flex gap-3"><Dash />Learn what the role involves before you commit.</li>
-                <li className="flex gap-3"><Dash />Complete your state&apos;s pre-licensing steps and exam.</li>
-                <li className="flex gap-3"><Dash />Learn the products, the process, and how to run a client conversation.</li>
+                <li className="flex gap-3">
+                  <Dash />
+                  Learn what the role involves before you commit.
+                </li>
+                <li className="flex gap-3">
+                  <Dash />
+                  Complete your state&apos;s pre-licensing steps and exam.
+                </li>
+                <li className="flex gap-3">
+                  <Dash />
+                  Learn the products, the process, and how to run a client conversation.
+                </li>
               </ul>
               <ButtonLink href="/opportunity#new-agents" variant="outlineDark" className="mt-10">
                 The path for new agents
@@ -159,9 +181,18 @@ export default function Home() {
               </p>
               <h4 className="mt-8 text-[0.95rem] font-semibold">What we&apos;d talk about</h4>
               <ul className="mt-3 space-y-3 text-silver">
-                <li className="flex gap-3"><Dash light />Where you are now, and where you want your business to go.</li>
-                <li className="flex gap-3"><Dash light />How our structure and support would work for you.</li>
-                <li className="flex gap-3"><Dash light />What a transition would look like, step by step.</li>
+                <li className="flex gap-3">
+                  <Dash light />
+                  Where you are now, and where you want your business to go.
+                </li>
+                <li className="flex gap-3">
+                  <Dash light />
+                  How our structure and support would work for you.
+                </li>
+                <li className="flex gap-3">
+                  <Dash light />
+                  What a transition would look like, step by step.
+                </li>
               </ul>
               <ButtonLink href="/opportunity#licensed-agents" variant="outlineLight" className="mt-10">
                 The path for licensed agents
@@ -183,15 +214,17 @@ export default function Home() {
             </p>
           </div>
           <dl className="divide-y divide-black/10 border-y border-black/10 lg:col-span-7 lg:col-start-6">
-            {support.map((item) => (
-              <div key={item.term} className="grid gap-3 py-6 sm:grid-cols-3 sm:gap-8">
-                <dt className="font-semibold">{item.term}</dt>
-                <dd className="space-y-3 sm:col-span-2">
-                  {item.body ? <p className="text-graphite">{item.body}</p> : null}
-                  {item.todo ? <Placeholder>{item.todo}</Placeholder> : null}
-                </dd>
-              </div>
-            ))}
+            {support
+              .filter((item) => item.body || showPlaceholders)
+              .map((item) => (
+                <div key={item.term} className="grid gap-3 py-6 sm:grid-cols-3 sm:gap-8">
+                  <dt className="font-semibold">{item.term}</dt>
+                  <dd className="space-y-3 sm:col-span-2">
+                    {item.body ? <p className="text-graphite">{item.body}</p> : null}
+                    {item.todo ? <Placeholder>{item.todo}</Placeholder> : null}
+                  </dd>
+                </div>
+              ))}
           </dl>
         </div>
       </section>

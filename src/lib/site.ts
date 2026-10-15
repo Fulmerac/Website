@@ -23,6 +23,15 @@ export const site = {
   schedulingUrl: process.env.NEXT_PUBLIC_SCHEDULING_URL || null,
 } as const;
 
+/**
+ * "To confirm" placeholders show during development so missing content is easy to spot, and are hidden on the
+ * live site so it only ever shows confirmed information. Set NEXT_PUBLIC_SHOW_PLACEHOLDERS=true or false to override.
+ */
+export const showPlaceholders =
+  process.env.NEXT_PUBLIC_SHOW_PLACEHOLDERS != null && process.env.NEXT_PUBLIC_SHOW_PLACEHOLDERS !== ""
+    ? process.env.NEXT_PUBLIC_SHOW_PLACEHOLDERS === "true"
+    : process.env.NODE_ENV !== "production";
+
 export const nav = [
   { href: "/opportunity", label: "The Opportunity" },
   { href: "/about", label: "About Cole" },

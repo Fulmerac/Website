@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { ApplyBand } from "@/components/apply-band";
 import { PageIntro } from "@/components/page-intro";
 import { Placeholder } from "@/components/placeholder";
+import { showPlaceholders } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Become a Life Insurance Agent: Independent, Part-Time or Full-Time",
@@ -18,13 +19,14 @@ const sections = [
   { id: "licensed-agents", label: "If you're licensed" },
   { id: "licensing", label: "Licensing" },
   { id: "commission", label: "Commission-based work" },
-  { id: "training", label: "Training and support" },
+  ...(showPlaceholders ? [{ id: "training", label: "Training and support" }] : []),
   { id: "questions", label: "Common questions" },
 ];
 
 const carriers = ["Corebridge Financial", "Transamerica", "Lincoln Financial Group", "Mutual of Omaha", "AIG"];
 
-type Faq = { q: string } & ({ text: string; a?: never } | { a: React.ReactNode; text?: never });
+/** `pending` answers are entirely unconfirmed and are left off the live site. */
+type Faq = { q: string; pending?: boolean } & ({ text: string; a?: never } | { a: React.ReactNode; text?: never });
 
 /** `text` marks verified answers; only those are published as FAQ structured data. */
 const faqs: Faq[] = [
@@ -69,15 +71,20 @@ const faqs: Faq[] = [
           license application. Those amounts are set by your state and course providers.
         </p>
         <Placeholder className="mt-4">
-          any other costs agents cover — including whether leads are paid for — and whether the agency helps with
-          any of them.
+          any other costs agents cover — including whether leads are paid for — and whether the agency helps with any of
+          them.
         </Placeholder>
       </>
     ),
   },
   {
     q: "I'm already licensed. What would change if I joined?",
-    a: <Placeholder>contracting and commission levels, how existing clients are handled, and any transition steps.</Placeholder>,
+    pending: true,
+    a: (
+      <Placeholder>
+        contracting and commission levels, how existing clients are handled, and any transition steps.
+      </Placeholder>
+    ),
   },
   {
     q: "What happens on the introductory call?",
@@ -102,7 +109,9 @@ export default function OpportunityPage() {
             <ul className="mt-3 flex flex-wrap gap-x-5 gap-y-2 text-[0.95rem] lg:flex-col">
               {sections.map((s) => (
                 <li key={s.id} className="shrink-0">
-                  <a href={`#${s.id}`} className="text-graphite hover:text-black hover:underline">{s.label}</a>
+                  <a href={`#${s.id}`} className="text-graphite hover:text-black hover:underline">
+                    {s.label}
+                  </a>
                 </li>
               ))}
             </ul>
@@ -138,9 +147,7 @@ export default function OpportunityPage() {
             </p>
             <p>Agents also offer:</p>
             <List items={["Term life insurance", "Whole life insurance", "Burial insurance", "Annuities"]} />
-            <p>
-              You aren&apos;t tied to one insurance company. Agents work with multiple carriers, including:
-            </p>
+            <p>You aren&apos;t tied to one insurance company. Agents work with multiple carriers, including:</p>
             <ul className="grid gap-x-8 gap-y-3 sm:grid-cols-2">
               {carriers.map((c) => (
                 <li key={c} className="flex gap-3">
@@ -174,8 +181,8 @@ export default function OpportunityPage() {
 
           <Section id="new-agents" title="If you're new to the industry">
             <p>
-              You don&apos;t need an insurance background to apply. You do need to be coachable, comfortable talking with
-              people, and ready to put real time into learning.
+              You don&apos;t need an insurance background to apply. You do need to be coachable, comfortable talking
+              with people, and ready to put real time into learning.
             </p>
             <List
               items={[
@@ -199,8 +206,8 @@ export default function OpportunityPage() {
               ]}
             />
             <Placeholder>
-              what&apos;s different for experienced agents here — e.g. contract levels, ownership of
-              your book, and leadership opportunities.
+              what&apos;s different for experienced agents here — e.g. contract levels, ownership of your book, and
+              leadership opportunities.
             </Placeholder>
           </Section>
 
@@ -227,9 +234,9 @@ export default function OpportunityPage() {
               ))}
             </ol>
             <p>
-              Licenses must be renewed, usually with continuing education. Your first license comes from your home state.
-              Because the agency serves clients in all 50 states, you can add non-resident licenses to help clients in
-              other states. Check your state&apos;s department of insurance for exact requirements.
+              Licenses must be renewed, usually with continuing education. Your first license comes from your home
+              state. Because the agency serves clients in all 50 states, you can add non-resident licenses to help
+              clients in other states. Check your state&apos;s department of insurance for exact requirements.
             </p>
           </Section>
 
@@ -253,27 +260,35 @@ export default function OpportunityPage() {
             </p>
           </Section>
 
-          <Section id="training" title="Training and support">
-            <p>What you can expect from Cole and the team once you join:</p>
-            <Placeholder>
-              verified details of training (format, length, topics), mentorship, licensing support, tools and
-              technology, and team meetings.
-            </Placeholder>
-          </Section>
+          {showPlaceholders ? (
+            <Section id="training" title="Training and support">
+              <p>What you can expect from Cole and the team once you join:</p>
+              <Placeholder>
+                verified details of training (format, length, topics), mentorship, licensing support, tools and
+                technology, and team meetings.
+              </Placeholder>
+            </Section>
+          ) : null}
 
           <Section id="questions" title="Common questions">
             <div className="border-t border-black/10">
-              {faqs.map((f) => (
-                <details key={f.q} className="group border-b border-black/10">
-                  <summary className="flex cursor-pointer list-none items-center justify-between gap-6 py-5 font-semibold text-ink [&::-webkit-details-marker]:hidden">
-                    {f.q}
-                    <svg aria-hidden viewBox="0 0 16 16" className="size-4 shrink-0 transition-transform duration-200 group-open:rotate-45">
-                      <path d="M8 2v12M2 8h12" stroke="currentColor" strokeWidth="1.5" />
-                    </svg>
-                  </summary>
-                  <div className="pb-6 text-base">{f.text ? <p>{f.text}</p> : f.a}</div>
-                </details>
-              ))}
+              {faqs
+                .filter((f) => !f.pending || showPlaceholders)
+                .map((f) => (
+                  <details key={f.q} className="group border-b border-black/10">
+                    <summary className="flex cursor-pointer list-none items-center justify-between gap-6 py-5 font-semibold text-ink [&::-webkit-details-marker]:hidden">
+                      {f.q}
+                      <svg
+                        aria-hidden
+                        viewBox="0 0 16 16"
+                        className="size-4 shrink-0 transition-transform duration-200 group-open:rotate-45"
+                      >
+                        <path d="M8 2v12M2 8h12" stroke="currentColor" strokeWidth="1.5" />
+                      </svg>
+                    </summary>
+                    <div className="pb-6 text-base">{f.text ? <p>{f.text}</p> : f.a}</div>
+                  </details>
+                ))}
             </div>
           </Section>
         </article>

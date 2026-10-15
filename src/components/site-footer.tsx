@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { LogoStacked } from "@/components/logo";
 import { Placeholder } from "@/components/placeholder";
-import { site } from "@/lib/site";
+import { showPlaceholders, site } from "@/lib/site";
 
 export function SiteFooter() {
   const { email, phone, location } = site.contact;
@@ -20,24 +20,50 @@ export function SiteFooter() {
         <div className="md:col-span-3">
           <h2 className="text-sm font-semibold text-white">Explore</h2>
           <ul className="mt-4 space-y-3 text-[0.95rem]">
-            <li><Link className="hover:text-white" href="/opportunity">The Opportunity</Link></li>
-            <li><Link className="hover:text-white" href="/about">About Cole</Link></li>
-            <li><Link className="hover:text-white" href="/join">Apply to Join Our Team</Link></li>
-            <li><Link className="hover:text-white" href="/privacy">Privacy policy</Link></li>
+            <li>
+              <Link className="hover:text-white" href="/opportunity">
+                The Opportunity
+              </Link>
+            </li>
+            <li>
+              <Link className="hover:text-white" href="/about">
+                About Cole
+              </Link>
+            </li>
+            <li>
+              <Link className="hover:text-white" href="/join">
+                Apply to Join Our Team
+              </Link>
+            </li>
+            <li>
+              <Link className="hover:text-white" href="/privacy">
+                Privacy policy
+              </Link>
+            </li>
           </ul>
         </div>
 
-        <div className="md:col-span-4">
-          <h2 className="text-sm font-semibold text-white">Contact</h2>
-          <address className="mt-4 space-y-3 text-[0.95rem] not-italic">
-            {email ? <a className="block hover:text-white" href={`mailto:${email}`}>{email}</a> : null}
-            {phone ? <a className="block hover:text-white" href={`tel:${phone.replace(/[^\d+]/g, "")}`}>{phone}</a> : null}
-            {location ? <p>{location}</p> : null}
-            {!email || !phone || !location ? (
-              <Placeholder tone="dark">agency email, phone number, and office location.</Placeholder>
-            ) : null}
-          </address>
-        </div>
+        {email || phone || location || showPlaceholders ? (
+          <div className="md:col-span-4">
+            <h2 className="text-sm font-semibold text-white">Contact</h2>
+            <address className="mt-4 space-y-3 text-[0.95rem] not-italic">
+              {email ? (
+                <a className="block hover:text-white" href={`mailto:${email}`}>
+                  {email}
+                </a>
+              ) : null}
+              {phone ? (
+                <a className="block hover:text-white" href={`tel:${phone.replace(/[^\d+]/g, "")}`}>
+                  {phone}
+                </a>
+              ) : null}
+              {location ? <p>{location}</p> : null}
+              {!email || !phone || !location ? (
+                <Placeholder tone="dark">agency email, phone number, and office location.</Placeholder>
+              ) : null}
+            </address>
+          </div>
+        ) : null}
       </div>
 
       <div className="border-t border-white/10">
@@ -48,10 +74,12 @@ export function SiteFooter() {
             income. A state-issued insurance license is required to sell life insurance; requirements vary by state.
           </p>
           <Placeholder tone="dark" className="max-w-4xl">
-            agency licensing details (resident state and license number), carrier or marketing-organization
-            affiliation, and any disclosures required by those partners or by state regulators.
+            agency licensing details (resident state and license number), carrier or marketing-organization affiliation,
+            and any disclosures required by those partners or by state regulators.
           </Placeholder>
-          <p>© {year} {site.name}. All rights reserved.</p>
+          <p>
+            © {year} {site.name}. All rights reserved.
+          </p>
         </div>
       </div>
     </footer>

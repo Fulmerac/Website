@@ -1,8 +1,10 @@
+import { showPlaceholders } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
 /**
  * Marks content that needs verified information from Cole. It is deliberately
- * visible so nothing unconfirmed can ship looking like a real claim.
+ * visible in development so nothing unconfirmed can ship looking like a real claim, and renders nothing on the
+ * live site (see `showPlaceholders`).
  */
 export function Placeholder({
   children,
@@ -15,6 +17,7 @@ export function Placeholder({
   className?: string;
   inline?: boolean;
 }) {
+  if (!showPlaceholders) return null;
   const Tag = inline ? "span" : "div";
   return (
     <Tag

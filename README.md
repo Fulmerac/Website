@@ -53,6 +53,7 @@ Set these in `.env.local` locally, or in your host's environment variables in pr
 | `RESEND_API_KEY` | Yes | API key from Resend. |
 | `APPLICATION_TO_EMAIL` | Yes | Cole's designated business email. Separate multiple addresses with commas. |
 | `APPLICATION_FROM_EMAIL` | Yes | Sender on a domain verified in Resend, e.g. `Secure Life Agency <applications@yourdomain.com>`. |
+| `NEXT_PUBLIC_SHOW_PLACEHOLDERS` | No | `true` shows the "To confirm" boxes on a deployed site (for review); `false` hides them in development. |
 | `APPLICATION_FORM_URL` | No | Overrides the Google Form link used while email delivery isn't set up. Set it to an empty value to turn the Google Form off. |
 | `NEXT_PUBLIC_SCHEDULING_URL` | No | Cole's booking link (Calendly, Cal.com, …). Until it's set, the confirmation page shows a marked placeholder. |
 | `NEXT_PUBLIC_SITE_URL` | Yes, in production | The live URL, e.g. `https://securelifeagency.com`. Used for the sitemap, canonical links, and share previews. |
@@ -92,7 +93,9 @@ The end-to-end tests cover:
 
 ## Before launch: information that must come from Cole
 
-Anything unverified appears on the site as a dashed **"To confirm"** box, so nothing invented can go live looking like a real claim. Search the code for `<Placeholder` to find each one.
+The site is ready to launch as it is. Anything not yet confirmed is marked with a dashed **"To confirm"** box. Those boxes show while developing (`npm run dev`) and are **hidden on the live site**, together with any section that would otherwise be empty, so visitors only ever see confirmed information. Set `NEXT_PUBLIC_SHOW_PLACEHOLDERS=true` to show them on a deployed preview. Search the code for `<Placeholder` to find each one.
+
+As each item below arrives, replace its placeholder with the real content and it appears on the live site.
 
 - [ ] **Vector logo.** The logo in `public/brand/` was cut from a 2000×2000 image and looks sharp at web sizes. If an SVG or larger original exists, swap it in for the crispest result.
 - [ ] **Contact details.** Business email, phone, and location go in `src/lib/site.ts`.

@@ -9,6 +9,7 @@ export function Photo({
   src,
   alt,
   brief,
+  caption,
   className,
   priority,
   sizes = "(min-width: 1024px) 50vw, 100vw",
@@ -16,6 +17,8 @@ export function Photo({
   src?: string;
   alt: string;
   brief: string;
+  /** Shown under a real photo. */
+  caption?: string;
   className?: string;
   priority?: boolean;
   sizes?: string;
@@ -23,7 +26,14 @@ export function Photo({
   return (
     <figure className={cn("relative overflow-hidden rounded-sm bg-graphite", className)}>
       {src ? (
-        <Image src={src} alt={alt} fill sizes={sizes} priority={priority} className="object-cover grayscale-[15%]" />
+        <>
+          <Image src={src} alt={alt} fill sizes={sizes} priority={priority} className="object-cover grayscale-[15%]" />
+          {caption ? (
+            <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent px-5 pt-12 pb-4 text-[0.95rem] text-white">
+              {caption}
+            </figcaption>
+          ) : null}
+        </>
       ) : (
         <div className="absolute inset-0 flex items-end p-5">
           <svg aria-hidden viewBox="0 0 24 24" className="absolute top-5 left-5 size-6 text-silver/50">

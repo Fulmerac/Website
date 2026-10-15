@@ -26,19 +26,28 @@ export default function ThankYouPage() {
         </div>
 
         <div className="hero-line lg:col-span-4 lg:col-start-9 lg:self-end" style={v(2)}>
-          <h2 className="heading text-2xl">Book your introductory call</h2>
-          <p className="mt-3 text-silver">
-            Pick a time to talk with Cole about your goals and whether this opportunity is a fit.
-          </p>
           {site.schedulingUrl ? (
-            <ButtonLink href={site.schedulingUrl} variant="light" className="mt-6 w-full sm:w-auto">
-              Book your introductory call
-            </ButtonLink>
+            <>
+              <h2 className="heading text-2xl">Book your introductory call</h2>
+              <p className="mt-3 text-silver">
+                Pick a time to talk with Cole about your goals and whether this opportunity is a fit.
+              </p>
+              <ButtonLink href={site.schedulingUrl} variant="light" className="mt-6 w-full sm:w-auto">
+                Book your introductory call
+              </ButtonLink>
+            </>
           ) : (
-            <Placeholder tone="dark" className="mt-6">
-              Cole&apos;s scheduling link (Calendly, Cal.com, or similar). Until it&apos;s added, the team will contact
-              applicants to book a time.
-            </Placeholder>
+            <>
+              <h2 className="heading text-2xl">Your introductory call</h2>
+              <p className="mt-3 text-silver">
+                The team will reach out to set up a time for you to talk with Cole about your goals and whether this
+                opportunity is a fit.
+              </p>
+              <Placeholder tone="dark" className="mt-6">
+                Cole&apos;s scheduling link (Calendly, Cal.com, or similar). Until it&apos;s added, the team contacts
+                applicants to book a time.
+              </Placeholder>
+            </>
           )}
           <p className="mt-8 text-[0.95rem] text-silver">
             In the meantime, read{" "}

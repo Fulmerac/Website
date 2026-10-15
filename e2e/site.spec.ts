@@ -23,10 +23,11 @@ async function fillValidApplication(page: Page) {
 
 test.describe("every page", () => {
   for (const path of pages) {
-    test(`${path} has one h1, metadata, no sideways scroll, and no serious a11y issues`, async ({ page }) => {
+    test(`${path} has one h1, metadata, no placeholders, no sideways scroll, and no serious a11y issues`, async ({ page }) => {
       await page.emulateMedia({ reducedMotion: "reduce" });
       await page.goto(path);
       await expect(page.locator("h1")).toHaveCount(1);
+      await expect(page.locator("[data-placeholder]")).toHaveCount(0);
       await expect(page).toHaveTitle(/Secure Life Agency/);
       await expect(page.locator('meta[name="description"]')).toHaveAttribute("content", /.{50,}/);
       expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
@@ -76,8 +77,7 @@ test("a delivered application goes to the confirmation page", async ({ page }) =
   await page.getByRole("button", { name: "Submit application" }).click();
   await expect(page).toHaveURL(/\/thank-you$/);
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("Application received.");
-  await expect(page.getByRole("heading", { name: "Book your introductory call" })).toBeVisible();
-  await expect(page.getByText("Cole's scheduling link")).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Your introductory call" })).toBeVisible();
   expect(payload).toMatchObject({ state: "Ohio", availability: ["weekday-evenings"], consent: true });
 });
 
