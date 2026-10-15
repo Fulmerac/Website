@@ -37,6 +37,8 @@ test.describe("every page", () => {
   }
 });
 
+const FORM = "https://forms.gle/NGGHfFpWZJK7Vk4y6";
+
 test("main navigation reaches each page", async ({ page }) => {
   await page.goto("/");
   for (const [name, heading] of [["The Opportunity", "The Opportunity"], ["About Cole", "About Cole"]] as const) {
@@ -44,18 +46,25 @@ test("main navigation reaches each page", async ({ page }) => {
     await page.getByRole("navigation", { name: "Main" }).getByRole("link", { name }).filter({ visible: true }).click();
     await expect(page.getByRole("heading", { level: 1 })).toHaveText(heading);
   }
-  await openNav(page);
-  await page.getByRole("navigation", { name: "Main" }).getByRole("link", { name: "Apply to Join Our Team" }).filter({ visible: true }).click();
-  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Join Our Team");
 });
 
-test("hero CTAs lead into the funnel", async ({ page }) => {
+test("every Apply button opens Cole's Google Form in a new tab", async ({ page }) => {
+  await page.goto("/");
+  await openNav(page);
+  const applyLinks = page.getByRole("link", { name: /^Apply to Join Our Team/ });
+  const count = await applyLinks.count();
+  expect(count).toBeGreaterThanOrEqual(4); // header (desktop + mobile), hero, closing band, footer
+  for (let i = 0; i < count; i++) {
+    await expect(applyLinks.nth(i)).toHaveAttribute("href", FORM);
+    await expect(applyLinks.nth(i)).toHaveAttribute("target", "_blank");
+  }
+  await expect(page.getByRole("link", { name: /Apply to join the team/ })).toHaveAttribute("href", FORM);
+});
+
+test("hero CTA leads into the funnel", async ({ page }) => {
   await page.goto("/");
   await page.getByRole("link", { name: "Explore the Opportunity", exact: true }).click();
   await expect(page).toHaveURL(/\/opportunity$/);
-  await page.goto("/");
-  await page.locator("main").getByRole("link", { name: "Apply to Join Our Team" }).first().click();
-  await expect(page).toHaveURL(/\/join$/);
 });
 
 test("empty submission explains every required field", async ({ page }) => {

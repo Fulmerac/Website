@@ -21,7 +21,7 @@ The primary conversion action is always labelled **Apply to Join Our Team**; the
 
 The form posts to `/api/apply`, which validates the answers and emails them to Cole using [Resend](https://resend.com). Replying to that email goes straight to the applicant.
 
-**Cole's Google Form.** Until email delivery is set up, the Join page sends applicants to Cole's Google Form (https://forms.gle/NGGHfFpWZJK7Vk4y6) instead of the on-site form. Google Forms stores the responses, and Cole can turn on email notifications for new responses in the form's **Responses** settings.
+**Cole's Google Form.** Until email delivery is set up, every "Apply to Join Our Team" button on the site opens Cole's Google Form (https://forms.gle/NGGHfFpWZJK7Vk4y6) directly in a new tab, and the Join page links to it instead of showing the on-site form. Where the buttons point is decided when the site is built, so redeploy after changing the email settings. Google Forms stores the responses, and Cole can turn on email notifications for new responses in the form's **Responses** settings.
 
 Applicants who use the Google Form see Google's confirmation screen, not this site's confirmation page and booking step. You can add Cole's booking link to the Google Form's confirmation message.
 

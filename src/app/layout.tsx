@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Archivo } from "next/font/google";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
+import { applyTarget } from "@/lib/apply";
 import { site } from "@/lib/site";
 import "./globals.css";
 
@@ -34,7 +35,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         >
           Skip to content
         </a>
-        <SiteHeader />
+        <SiteHeader apply={applyTarget()} />
         <main id="main" className="flex-1">
           {children}
         </main>

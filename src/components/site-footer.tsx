@@ -1,9 +1,12 @@
 import Link from "next/link";
 import { LogoStacked } from "@/components/logo";
 import { Placeholder } from "@/components/placeholder";
+import { NewTabNote } from "@/components/new-tab-note";
+import { applyLinkProps, applyTarget } from "@/lib/apply";
 import { showPlaceholders, site } from "@/lib/site";
 
 export function SiteFooter() {
+  const apply = applyTarget();
   const { email, phone, location } = site.contact;
   const year = new Date().getFullYear();
 
@@ -31,8 +34,9 @@ export function SiteFooter() {
               </Link>
             </li>
             <li>
-              <Link className="hover:text-white" href="/join">
+              <Link className="hover:text-white" {...applyLinkProps(apply)}>
                 Apply to Join Our Team
+                <NewTabNote show={apply.external} />
               </Link>
             </li>
             <li>

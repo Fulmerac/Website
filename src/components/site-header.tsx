@@ -5,14 +5,20 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Logo } from "@/components/logo";
 import { ButtonLink } from "@/components/ui/button";
+import { NewTabNote } from "@/components/new-tab-note";
+import type { ApplyTarget } from "@/lib/apply";
 import { nav } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
-export function SiteHeader() {
+export function SiteHeader({ apply }: { apply: ApplyTarget }) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
 
   useEffect(() => setOpen(false), [pathname]);
+
+  const linkProps = apply.external
+    ? { href: apply.href, target: "_blank", rel: "noopener noreferrer" }
+    : { href: apply.href };
 
   return (
     <header className="relative z-20 bg-black text-white">
@@ -30,8 +36,9 @@ export function SiteHeader() {
               {item.label}
             </Link>
           ))}
-          <ButtonLink href="/join" variant="light" className="min-h-10 px-5 text-sm">
+          <ButtonLink {...linkProps} variant="light" className="min-h-10 px-5 text-sm">
             Apply to Join Our Team
+            <NewTabNote show={apply.external} />
           </ButtonLink>
         </nav>
 
@@ -67,8 +74,9 @@ export function SiteHeader() {
             </li>
           ))}
           <li className="pt-3">
-            <ButtonLink href="/join" variant="light" className="w-full">
+            <ButtonLink {...linkProps} variant="light" className="w-full">
               Apply to Join Our Team
+              <NewTabNote show={apply.external} />
             </ButtonLink>
           </li>
         </ul>

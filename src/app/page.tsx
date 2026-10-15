@@ -4,11 +4,13 @@ import { ApplyBand } from "@/components/apply-band";
 import { Photo } from "@/components/photo";
 import { Placeholder } from "@/components/placeholder";
 import { ButtonLink } from "@/components/ui/button";
+import { NewTabNote } from "@/components/new-tab-note";
+import { applyLinkProps, applyTarget } from "@/lib/apply";
 import { showPlaceholders } from "@/lib/site";
 
 const chapters = [
   { title: "Explore the opportunity", href: "/opportunity" },
-  { title: "Apply to join the team", href: "/join" },
+  { title: "Apply to join the team", href: "apply" },
   { title: "Talk it through with Cole", href: "/join#what-happens-next" },
   { title: "Get licensed, if you aren't yet", href: "/opportunity#licensing" },
   { title: "Build your business", href: "/opportunity#the-work" },
@@ -24,6 +26,7 @@ export const metadata: Metadata = {
 const v = (i: number) => ({ "--i": i }) as React.CSSProperties;
 
 export default function Home() {
+  const apply = applyTarget();
   return (
     <>
       {/* Hero */}
@@ -54,8 +57,9 @@ export default function Home() {
                 <ButtonLink href="/opportunity" variant="light">
                   Explore the Opportunity
                 </ButtonLink>
-                <ButtonLink href="/join" variant="outlineLight">
+                <ButtonLink {...applyLinkProps(apply)} variant="outlineLight">
                   Apply to Join Our Team
+                  <NewTabNote show={apply.external} />
                 </ButtonLink>
               </div>
               <p className="mt-6 text-[0.9rem] text-pewter">
@@ -70,9 +74,15 @@ export default function Home() {
               <ol className="mt-4 border-t border-white/15">
                 {chapters.map((c, i) => (
                   <li key={c.title} className="toc-item border-b border-white/15" style={v(i + 1)}>
-                    <Link href={c.href} className="group flex items-baseline gap-4 py-4 text-lg sm:text-xl">
+                    <Link
+                      {...(c.href === "apply" ? applyLinkProps(apply) : { href: c.href })}
+                      className="group flex items-baseline gap-4 py-4 text-lg sm:text-xl"
+                    >
                       <span className="w-5 shrink-0 text-[0.95rem] text-pewter tabular-nums">{i + 1}</span>
-                      <span className="transition-colors group-hover:text-white sm:text-white/90">{c.title}</span>
+                      <span className="transition-colors group-hover:text-white sm:text-white/90">
+                        {c.title}
+                        <NewTabNote show={c.href === "apply" && apply.external} />
+                      </span>
                       <span
                         aria-hidden
                         className="leader mb-1.5 hidden h-px flex-1 border-b border-dotted border-white/30 sm:block"
