@@ -1,6 +1,6 @@
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test, type Page } from "@playwright/test";
-import { UNCONFIGURED } from "../playwright.config";
+import { GOOGLE_FORM, UNCONFIGURED } from "../playwright.config";
 
 const pages = ["/", "/opportunity", "/about", "/join", "/thank-you", "/privacy"];
 
@@ -120,5 +120,17 @@ test.describe("without email delivery configured", () => {
     });
     expect(res.status()).toBe(503);
     expect((await res.json()).error).toMatch(/not sent/);
+  });
+});
+
+test.describe("without email delivery, with Cole's Google Form", () => {
+  test.use({ baseURL: GOOGLE_FORM });
+
+  test("the Join page sends applicants to the Google Form instead of the on-site form", async ({ page }) => {
+    await page.goto("/join");
+    const apply = page.locator("main").getByRole("link", { name: /Apply to Join Our Team/ }).last();
+    await expect(apply).toHaveAttribute("href", "https://forms.gle/NGGHfFpWZJK7Vk4y6");
+    await expect(apply).toHaveAttribute("target", "_blank");
+    await expect(page.getByRole("button", { name: "Submit application" })).toHaveCount(0);
   });
 });

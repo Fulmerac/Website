@@ -21,9 +21,15 @@ The primary conversion action is always labelled **Apply to Join Our Team**; the
 
 The form posts to `/api/apply`, which validates the answers and emails them to Cole using [Resend](https://resend.com). Replying to that email goes straight to the applicant.
 
+**Cole's Google Form.** Until email delivery is set up, the Join page sends applicants to Cole's Google Form (https://forms.gle/NGGHfFpWZJK7Vk4y6) instead of the on-site form. Google Forms stores the responses, and Cole can turn on email notifications for new responses in the form's **Responses** settings.
+
+Applicants who use the Google Form see Google's confirmation screen, not this site's confirmation page and booking step. You can add Cole's booking link to the Google Form's confirmation message.
+
+Once email delivery is configured, the on-site form (with validation, the confirmation page, and the booking step) takes over automatically.
+
 **The site never claims an application was sent unless the email was actually delivered.**
 
-- **Not configured:** the Join page says applications aren't open yet, and the submit button is disabled. The API refuses submissions with a `503` error.
+- **Neither email nor a Google Form:** the Join page says applications aren't open yet, and the submit button is disabled. The API refuses submissions with a `503` error.
 - **Delivery fails:** the applicant stays on the form with an explanation, and nothing is lost from what they typed.
 
 The form collects only what's needed to follow up. It asks for no Social Security number, date of birth, or financial details.
@@ -47,6 +53,7 @@ Set these in `.env.local` locally, or in your host's environment variables in pr
 | `RESEND_API_KEY` | Yes | API key from Resend. |
 | `APPLICATION_TO_EMAIL` | Yes | Cole's designated business email. Separate multiple addresses with commas. |
 | `APPLICATION_FROM_EMAIL` | Yes | Sender on a domain verified in Resend, e.g. `Secure Life Agency <applications@yourdomain.com>`. |
+| `APPLICATION_FORM_URL` | No | Overrides the Google Form link used while email delivery isn't set up. Set it to an empty value to turn the Google Form off. |
 | `NEXT_PUBLIC_SCHEDULING_URL` | No | Cole's booking link (Calendly, Cal.com, …). Until it's set, the confirmation page shows a marked placeholder. |
 | `NEXT_PUBLIC_SITE_URL` | Yes, in production | The live URL, e.g. `https://securelifeagency.com`. Used for the sitemap, canonical links, and share previews. |
 
@@ -87,12 +94,12 @@ The end-to-end tests cover:
 
 Anything unverified appears on the site as a dashed **"To confirm"** box, so nothing invented can go live looking like a real claim. Search the code for `<Placeholder` to find each one.
 
-- [ ] **Logo.** Add the original file to `public/brand/`, set `logo` in `src/lib/site.ts`, and replace `src/app/icon.svg` with a version of it. Until then the agency name is shown as text and the browser-tab icon is a neutral black square.
+- [ ] **Vector logo.** The logo in `public/brand/` was cut from a 2000×2000 image and looks sharp at web sizes. If an SVG or larger original exists, swap it in for the crispest result.
 - [ ] **Contact details.** Business email, phone, and location go in `src/lib/site.ts`.
 - [ ] **Training, support, and costs.**
   - Training, mentorship, licensing help, and costs to the agent, on the homepage (`src/app/page.tsx`).
   - The matching section on the Opportunity page (`src/app/opportunity/page.tsx`).
-- [ ] **Carriers.** Which carriers agents can write with, and whether the site may show their names or logos.
+- [ ] **Carrier logos (optional).** Carriers are listed by name. Showing their logos usually needs each carrier's permission.
 - [ ] **Lead details.** How leads are distributed, and whether agents pay for them.
 - [ ] **Experienced-agent specifics.** Contracting, carrier access, how existing clients are handled, and transition steps (Opportunity page and FAQ).
 - [ ] **FAQ answers** marked "To confirm": costs, and what changes for licensed agents.
@@ -102,7 +109,8 @@ Anything unverified appears on the site as a dashed **"To confirm"** box, so not
   - Any carrier or marketing-organization affiliation.
   - Any state-required insurance disclosures (footer).
 - [ ] **Privacy policy**, reviewed for your business (`src/app/privacy/page.tsx`).
-- [ ] **Photos.** Real photos of Cole and the team go in `public/photos/`, passed as `src` to each `<Photo>` slot. Each slot describes the shot it needs. Next.js resizes and compresses them automatically.
+- [ ] **Cole's portrait.** Save it as `public/photos/cole.jpg`; the About page picks it up automatically on the next build.
+- [ ] **Other photos.** Real photos of the team go in `public/photos/`, passed as `src` to each `<Photo>` slot. Each slot describes the shot it needs. Next.js resizes and compresses them automatically.
 - [ ] **Compliance review.** Have the commission, licensing, and contact-consent wording reviewed for your state(s) and partners.
 
 ## Confirmed facts used on the site
@@ -113,6 +121,18 @@ These are confirmed. Update them here and in the code if anything changes.
 - The agency serves clients in all 50 states, and agents can work from anywhere in the U.S.
 - Agents have access to leads from multiple lead vendors, at low, medium, and high levels of intent.
 - Final expense life insurance is the focus. Agents also offer term life, whole life, burial insurance, and annuities.
+- Agents work with multiple carriers, including Corebridge Financial, Transamerica, Lincoln Financial Group, Mutual of Omaha, and AIG.
+
+## Brand assets (`public/brand/`)
+
+| File | Use |
+|---|---|
+| `logo-original.webp` | The original logo as supplied. |
+| `mark-white.png`, `wordmark-white.png` | Header lockup on black. |
+| `mark-black.png`, `wordmark-black.png` | For light backgrounds. |
+| `logo-stacked-white.png` | Footer. |
+
+The browser-tab icons (`src/app/icon.png`, `src/app/apple-icon.png`) and the share image use the same mark.
 
 ## Stack
 

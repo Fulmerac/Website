@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Logo } from "@/components/logo";
+import { LogoStacked } from "@/components/logo";
 import { Placeholder } from "@/components/placeholder";
 import { site } from "@/lib/site";
 
@@ -11,8 +11,8 @@ export function SiteFooter() {
     <footer className="bg-black text-silver">
       <div className="wrap grid gap-12 py-16 md:grid-cols-12 md:py-20">
         <div className="md:col-span-5">
-          <Logo className="text-white" />
-          <p className="mt-4 max-w-sm text-[0.95rem]">
+          <LogoStacked />
+          <p className="mt-6 max-w-sm text-[0.95rem]">
             Recruiting independent life insurance agents, from first-time applicants to licensed professionals.
           </p>
         </div>

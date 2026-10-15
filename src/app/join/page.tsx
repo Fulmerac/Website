@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { ApplicationForm } from "@/components/application-form";
 import { PageIntro } from "@/components/page-intro";
+import { buttonVariants } from "@/components/ui/button";
 import { emailConfig } from "@/lib/email";
 import { site } from "@/lib/site";
 
@@ -15,7 +17,7 @@ export const metadata: Metadata = {
 };
 
 const steps = [
-  { title: "Submit your application", body: "Tell us about yourself, your license status, and what you're looking for." },
+  { title: "Submit your application", body: "Tell us about yourself and what you're looking for." },
   { title: "We review it", body: "The team reviews your application and contacts you by phone or email about next steps." },
   {
     title: "Introductory conversation",
@@ -25,6 +27,9 @@ const steps = [
 ];
 
 export default function JoinPage() {
+  const onSite = emailConfig() !== null;
+  const externalForm = onSite ? null : site.applicationFormUrl() || null;
+
   return (
     <>
       <PageIntro title="Join Our Team">
@@ -58,7 +63,28 @@ export default function JoinPage() {
         <section aria-labelledby="form-heading" className="lg:col-span-7 lg:col-start-6">
           <h2 id="form-heading" className="heading text-[clamp(1.75rem,3.5vw,2.5rem)]">Application</h2>
           <div className="mt-8">
-            <ApplicationForm accepting={emailConfig() !== null} />
+            {externalForm ? (
+              <div className="space-y-6 text-lg text-graphite">
+                <p>
+                  The application opens in Google Forms in a new tab. Your answers go to Cole&apos;s team for review.
+                </p>
+                <a
+                  href={externalForm}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={buttonVariants({ variant: "dark", className: "w-full sm:w-auto sm:px-10" })}
+                >
+                  Apply to Join Our Team
+                  <span className="sr-only"> (opens Google Forms in a new tab)</span>
+                </a>
+                <p className="text-[0.95rem] text-steel">
+                  Please don&apos;t include your Social Security number or financial details. See our{" "}
+                  <Link href="/privacy" className="underline underline-offset-2">privacy policy</Link>.
+                </p>
+              </div>
+            ) : (
+              <ApplicationForm accepting={onSite} />
+            )}
           </div>
         </section>
       </div>

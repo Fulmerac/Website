@@ -1,10 +1,15 @@
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
 import { ImageResponse } from "next/og";
 
 export const alt = "Secure Life Agency — Your Next Chapter Starts Here.";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-export default function OpengraphImage() {
+export default async function OpengraphImage() {
+  const mark = await readFile(join(process.cwd(), "public/brand/mark-white.png"));
+  const markSrc = `data:image/png;base64,${mark.toString("base64")}`;
+
   return new ImageResponse(
     (
       <div
@@ -20,7 +25,10 @@ export default function OpengraphImage() {
           fontFamily: "sans-serif",
         }}
       >
-        <div style={{ fontSize: 30, fontWeight: 700 }}>Secure Life Agency</div>
+        <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
+          <img src={markSrc} width={53} height={80} alt="" />
+          <div style={{ fontSize: 30, fontWeight: 700, letterSpacing: 2 }}>SECURE LIFE AGENCY</div>
+        </div>
         <div style={{ display: "flex", flexDirection: "column", fontSize: 104, fontWeight: 800, lineHeight: 0.95, letterSpacing: -3 }}>
           <span>Your Next Chapter</span>
           <span>Starts Here.</span>

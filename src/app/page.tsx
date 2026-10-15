@@ -216,7 +216,10 @@ const support: { term: string; body?: string; todo?: string }[] = [
   {
     term: "What you'd offer",
     body: "Final expense life insurance is the focus. Agents also offer term life, whole life, burial insurance, and annuities.",
-    todo: "the carriers agents can write with.",
+  },
+  {
+    term: "Carriers",
+    body: "Multiple carriers, including Corebridge Financial, Transamerica, Lincoln Financial Group, Mutual of Omaha, and AIG.",
   },
   {
     term: "Clients and leads",

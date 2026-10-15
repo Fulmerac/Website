@@ -22,6 +22,8 @@ const sections = [
   { id: "questions", label: "Common questions" },
 ];
 
+const carriers = ["Corebridge Financial", "Transamerica", "Lincoln Financial Group", "Mutual of Omaha", "AIG"];
+
 type Faq = { q: string } & ({ text: string; a?: never } | { a: React.ReactNode; text?: never });
 
 /** `text` marks verified answers; only those are published as FAQ structured data. */
@@ -45,6 +47,10 @@ const faqs: Faq[] = [
   {
     q: "What would I be selling?",
     text: "Final expense life insurance is the focus. Agents also offer term life, whole life, burial insurance, and annuities.",
+  },
+  {
+    q: "Which carriers can I work with?",
+    text: "Agents work with multiple carriers, including Corebridge Financial, Transamerica, Lincoln Financial Group, Mutual of Omaha, and AIG.",
   },
   {
     q: "Are leads available?",
@@ -71,7 +77,7 @@ const faqs: Faq[] = [
   },
   {
     q: "I'm already licensed. What would change if I joined?",
-    a: <Placeholder>contracting, carrier access, how existing clients are handled, and any transition steps.</Placeholder>,
+    a: <Placeholder>contracting and commission levels, how existing clients are handled, and any transition steps.</Placeholder>,
   },
   {
     q: "What happens on the introductory call?",
@@ -132,7 +138,17 @@ export default function OpportunityPage() {
             </p>
             <p>Agents also offer:</p>
             <List items={["Term life insurance", "Whole life insurance", "Burial insurance", "Annuities"]} />
-            <Placeholder>the carriers agents can write with.</Placeholder>
+            <p>
+              You aren&apos;t tied to one insurance company. Agents work with multiple carriers, including:
+            </p>
+            <ul className="grid gap-x-8 gap-y-3 sm:grid-cols-2">
+              {carriers.map((c) => (
+                <li key={c} className="flex gap-3">
+                  <span aria-hidden className="mt-[0.85em] h-px w-4 shrink-0 bg-black" />
+                  {c}
+                </li>
+              ))}
+            </ul>
           </Section>
 
           <Section id="leads" title="Leads">
@@ -183,7 +199,7 @@ export default function OpportunityPage() {
               ]}
             />
             <Placeholder>
-              what&apos;s different for experienced agents here — e.g. contract levels, carrier access, ownership of
+              what&apos;s different for experienced agents here — e.g. contract levels, ownership of
               your book, and leadership opportunities.
             </Placeholder>
           </Section>

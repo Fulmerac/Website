@@ -1,3 +1,5 @@
+import { existsSync } from "node:fs";
+import { join } from "node:path";
 import type { Metadata } from "next";
 import { ApplyBand } from "@/components/apply-band";
 import { PageIntro } from "@/components/page-intro";
@@ -11,6 +13,9 @@ export const metadata: Metadata = {
   alternates: { canonical: "/about" },
 };
 
+/** Drop Cole's portrait at public/photos/cole.jpg and it appears here on the next build. */
+const portrait = existsSync(join(process.cwd(), "public/photos/cole.jpg")) ? "/photos/cole.jpg" : undefined;
+
 export default function AboutPage() {
   return (
     <>
@@ -21,9 +26,10 @@ export default function AboutPage() {
       <section className="py-16 md:py-24">
         <div className="wrap grid gap-12 lg:grid-cols-12 lg:gap-16">
           <Photo
+            src={portrait}
             priority
             className="aspect-[4/5] lg:col-span-5"
-            alt="Portrait of Cole"
+            alt="Cole, owner of Secure Life Agency, standing outside in a black button-up shirt"
             brief="Cole, photographed where he actually works — office or client meeting — looking at the camera. Black and white or muted color."
           />
 
